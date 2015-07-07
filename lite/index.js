@@ -1,4 +1,5 @@
-/* Get this browser's XMLHttpRequest */
+/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+
 if (typeof XMLHttpRequest == "undefined")
   XMLHttpRequest = function() {
     try {
@@ -20,7 +21,7 @@ if (typeof XMLHttpRequest == "undefined")
     throw new Error("This browser does not support XMLHttpRequest.")
   };
 
-var dictionaryName = 'com.nuwavetech.nonstopexplorer';
+var dictionaryName = 'io.nuwavetech.nonstopexplorer';
 
 function setMessage(isError, message) {
   var div = document.getElementById('message');
@@ -58,7 +59,6 @@ function getSystemInfo() {
 
   /* Build the request. */
   var request = {};
-  request.correlationId = Date.now().toString();
   request.data = {};
   request.data.type = dictionaryName + '.GetSystemInfo';
   request.data.accept = dictionaryName + '.GetSystemInfoResult';
@@ -85,7 +85,6 @@ function getCpuList() {
 
   /* Build the request. */
   var request = {};
-  request.correlationId = Date.now().toString();
   request.data = {};
   request.data.type = dictionaryName + '.GetCpuList';
   request.data.accept = dictionaryName + '.GetCpuListResult';
@@ -112,7 +111,6 @@ function getFiles() {
 
   /* Build the request. */
   var request = {};
-  request.correlationId = Date.now().toString();
   request.data = {};
   request.data.type = dictionaryName + '.GetFiles';
   request.data.accept = dictionaryName + '.GetFilesResult';
@@ -141,7 +139,6 @@ function getFileInfo() {
 
   /* Build the request. */
   var request = {};
-  request.correlationId = Date.now().toString();
   request.data = {};
   request.data.type = dictionaryName + '.GetFileInfo';
   request.data.accept = dictionaryName + '.GetFileInfoResult';
@@ -171,7 +168,6 @@ function getSubvols() {
 
   /* Build the request. */
   var request = {};
-  request.correlationId = Date.now().toString();
   request.data = {};
   request.data.type = dictionaryName + '.GetSubvols';
   request.data.accept = dictionaryName + '.GetSubvolsResult';
@@ -199,7 +195,6 @@ function getVolumes() {
 
   /* Build the request. */
   var request = {};
-  request.correlationId = Date.now().toString();
   request.data = {};
   request.data.type = dictionaryName + '.GetVolumes';
   request.data.accept = dictionaryName + '.GetVolumesResult';

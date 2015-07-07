@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.nuwavetech.nonstopexplorer" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>NonStop Explorer</name>
+    <description>
+    A sample application utilizing LightWave from NuWave Technologies, Inc.
+  </description>
+    <author email="support@nuwavetech.com" href="http://www.nuwavetech.com">
+    NuWave Technologies, Inc.
+  </author>
+    <plugin name="cordova-plugin-device" spec="^1.0.1" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.0.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.0.1" />
+    <content src="index.html#isCordovaApp" />
+    <icon src="www/img/logo.png" />
+    <preference name="android-minSdkVersion" value="11" />
+    <preference name="fullscreen" value="false" />
+    <access origin="*" />
+    <plugin name="cordova-plugin-statusbar" spec="^1.0.1" />
+</widget>
