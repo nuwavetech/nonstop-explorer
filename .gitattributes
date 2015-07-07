@@ -1,0 +1,11 @@
+* whitespace=blank-at-eol,space-before-tab,tab-in-indent,tabwidth=2
+
+* text auto
+*.html text
+*.js text
+*.txt text
+*.md text
+
+*.jpg binary
+*.png binary
+
