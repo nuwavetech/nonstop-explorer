@@ -1,0 +1,21 @@
+<!-- Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) -->
+<md-content class="md-padding cpu">
+  <div layout="row" layout-wrap>
+    <md-whiteframe class="md-whiteframe-z2" flex="100">
+      <div class="md-padding">
+        <md-list>
+          <md-item ng-repeat="cpu in vm.cpuList.cpu">
+            <md-item-content>
+              <div class="md-padding">
+                <span>CPU {{cpu.cpuNumber}}&nbsp;&nbsp;{{cpu.busy}}% &nbsp;</span>
+                <div>
+                  <md-progress-linear ng-class="{0:'md-primary', 1:'md-primary', 2:'md-warn'}[cpu.busyLevel]" md-mode="determinate" value="{{cpu.busy}}"> </md-progress>
+                </div>
+              </div>
+            </md-item-content>
+          </md-item>
+        </md-list>
+      </div>
+    </md-whiteframe>
+  </div>
+</md-content>

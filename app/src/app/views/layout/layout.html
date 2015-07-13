@@ -1,0 +1,59 @@
+<!-- Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) -->
+<div ng-cloak ng-controller="LayoutController as vm" md-swipe-right="vm.openSidenav()" md-swipe-left="vm.closeSidenav()" style="height:100%;">
+
+  <!-- This is the slideout sidenav -->
+  <md-sidenav class="layout-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="layout-sidenav">
+    <!-- sidenav toolbar begins -->
+    <md-toolbar>
+      <h1 class="md-toolbar-tools">
+        <div flex class="layout-title" layout="row"><img class="layout-toolbar-logo" src="img/logo.png" class="logo"></img><span class="layout-sidenav-title">NonStop Explorer</span></div>
+      </h1>
+    </md-toolbar>
+    <!-- sidenav toolbar begins -->
+    <md-content flex role="navigation">
+      <div class="layout-sidenav-item" layout="row" ng-click="vm.closeSidenav()" data-ui-sref="{{item.stateName}}" data-ui-sref-active="layout-sidenav-active" ng-repeat="item in vm.layout.sidenavItems">
+        <div><md-icon md-svg-icon="{{item.icon}}"></md-icon><span ng-bind="item.title"></span></div>
+      </div>
+    </md-content>
+  </md-sidenav>
+
+  <!-- This is the start of the page area. -->
+  <div layout="column" tabIndex="-1" role="main" flex>
+
+    <!-- The toolbar with menu/logo icon -->
+    <md-toolbar>
+
+      <div class="md-toolbar-tools" layout="row">
+        <!-- The sidenav button -->
+        <div>
+          <div ng-if="true">
+            <md-icon class="layout-toolbar-menuicon" aria-label="Toggle Menu"
+              ng-click="vm.openSidenav()" md-svg-icon="menu"></md-icon>
+          </div>
+          <div ng-if="false">
+            <img class="layout-toolbar-logo" src="img/logo.png" />
+          </div>
+        </div>
+
+        <!-- The title -->
+        <div layout="row" flex class="fill-height">
+          <div class="md-toolbar-item layout-title" >
+            <span hide show-gt-sm>NonStop Explorer</span>
+            <span ng-if="vm.layout.toolbarTitle.length > 0">
+              <md-icon hide show-gt-sm md-svg-icon="chevron_right"></md-icon>
+              <span ng-bind="vm.layout.toolbarTitle"></span>
+            </span>
+          </div>
+
+          <!-- use up the empty space (floats remainder right)-->
+          <span flex></span>
+
+        </div>
+      </div>
+    </md-toolbar>
+
+    <!-- Views are displayed here. -->
+    <div data-ui-view layout="column" flex layout-fill></div>
+
+  </div>
+</div>

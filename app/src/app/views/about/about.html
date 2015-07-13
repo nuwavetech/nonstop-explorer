@@ -1,0 +1,32 @@
+<!-- Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) -->
+<md-content class="md-padding info">
+
+  <div layout="row" layout-wrap>
+
+    <md-whiteframe class="md-whiteframe-z2" flex="100">
+      <div class="md-padding">
+        <p>
+          NonStop Explorer demonstrates how a web or mobile application can exchange messages with an HP
+          NonStop Server Pathway application using LightWave Server from NuWave Technologies.
+          The application retrieves system information from an HP NonStop Server Pathway
+          application using LightWave Server's Serverclass REST API.
+        </p>
+        <p>
+          LightWave Server is client / server middleware that provides access to NonStop Server
+          standalone process, Pathway serverclass, TMF, and Enscribe services. Distributed
+          applications can access these services using a simple RESTful API. For information on
+          LightWave Server visit the <a href ng-click="vm.openBrowser('http://docs.nuwavetech.com')">NuWave Technologies Documentation Center</a>
+        </p>
+        <p ng-if="!vm.isCordovaApp">
+          An Android version of this application is available at the <a href ng-click="vm.openBrowser('https://play.google.com/store/apps/details?id=com.nuwavetech.nonstopexplorer')">Google Play Store</a>.
+        </p>
+        <p ng-if="vm.isCordovaApp">
+          A web version of this application is available at <a href ng-click="vm.openBrowser('http://explorer.nuwavetech.io')">explorer.nuwavetech.io</a>.
+        </p>
+        <p>
+          The source code for this application is available on <a href ng-click="vm.openBrowser('https://github.com/nuwavetech/nonstop-explorer')">Github</a>.
+        </p>
+      </div>
+    </md-whiteframe>
+  </div>
+</md-content>
