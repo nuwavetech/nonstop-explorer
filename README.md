@@ -1,6 +1,6 @@
 NonStop Explorer
 ---
-Version 2.0 - 13JUL2015
+Version 2.0.0 - 13JUL2015
 
 The NonStop Explorer sample application demonstrates how a web application or mobile device can exchange
 messages with an HP NonStop Server Pathway application using NuWave Technologies LightWave
@@ -25,14 +25,14 @@ of the app for those unfamiliar with AngularJS.
 
 Live web versions of the client apps, hosted on Amazon Cloudfront, can be found here:
 
-* [explorer.nuwavetech.io] (explorer.nuwavetech.io)
-* [explorer-lite.nuwavetech.io] (explorer-lite.nuwavetech.io)
+* [explorer.nuwavetech.io] (http://explorer.nuwavetech.io)
+* [explorer-lite.nuwavetech.io] (http://explorer-lite.nuwavetech.io)
 
 The Android version of the app can be found at the [Google Play Store] (https://play.google.com/store/apps/details?id=com.nuwavetech.nonstopexplorer).
 
-Documentation for LightWave Server can be found at the [NuWave Technologies Documentation Center] (docs.nuwavetech.com)
+Documentation for LightWave Server can be found at the [NuWave Technologies Documentation Center] (http://docs.nuwavetech.com)
 <hr>
 
-[LightWave Server] (www.nuwavetech.com/lightwave) is a trademark of NuWave Technologies, Inc.<br>
+[LightWave Server] (http://www.nuwavetech.com/lightwave) is a trademark of NuWave Technologies, Inc.<br>
 HP NonStop is a registered trademark of Hewlett-Packard.<br>
-All source code in this project is [licensed under the MIT License] (LICENSE).
+All source code in this project is [licensed under the MIT License] (LICENSE.md).
