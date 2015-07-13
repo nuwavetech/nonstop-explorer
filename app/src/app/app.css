@@ -1,0 +1,14 @@
+/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+md-icon {
+  outline:none;
+}
+
+a {
+  outline:none;
+}
+

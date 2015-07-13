@@ -1,0 +1,146 @@
+<!-- Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) -->
+<md-content class="md-padding storage">
+  <div layout="row" layout-wrap>
+    <md-whiteframe class="md-whiteframe-z2" flex="100">
+      <div layout="row" layout-wrap>
+        <div ng-repeat="item in vm.breadcrumb" >
+          <md-button class="storage-breadcrumb-button" ng-click="vm.showBreadcrumbItem($event, $index)">{{item}}</md-button>
+          <span ng-if="!$last" class="storage-breadcrumb-dot">.</span>
+        </div>
+      </div>
+      <div ng-if="!vm.progress" layout="row" class="md-padding storage-breadcrumb-title">
+        <div ng-if="vm.displayLevel < vm.level.FILE">{{vm.displayItems.length}}&nbsp;</div>
+        <div ng-if="vm.displayItems.length !== 1">{{{0:'Volumes', 1:'Subvols', 2:'Files', 3:'File Info'}[vm.displayLevel]}}</div>
+        <div ng-if="vm.displayItems.length === 1">{{{0:'Volume', 1:'Subvol', 2:'File', 3:'File Info'}[vm.displayLevel]}}</div>
+      </div>
+      <div ng-if="vm.progress" layout="row" class="md-padding storage-breadcrumb-title">
+        Loading&nbsp;<div>{{{0:'Volumes', 1:'Subvols', 2:'Files', 3:'File Info'}[vm.displayLevel]}}</div>&nbsp...
+      </div>
+      <md-divider></md-divider>
+      <div>
+        <div ng-if="!vm.progress && vm.displayLevel < vm.level.FILE">
+          <md-button ng-repeat="item in vm.displayItems" class="storage-list-button" flex ng-click="vm.showListItem($event, item)">{{item}}</md-button>
+        </div>
+        <div ng-if="!vm.progress && vm.displayLevel === vm.level.FILE" class="md-padding">
+          <div layout="row">
+            <div class="storage-info-label">File Type</div>
+            <div>{{vm.fileInfo.fileType}} - {{vm.fileInfo.fileTypeDesc}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Format</div>
+            <div>{{vm.fileInfo.fileFormat}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Code</div>
+            <div>{{vm.fileInfo.fileCode}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Extents</div>
+            <div>{{vm.fileInfo.priExt}} primary, {{vm.fileInfo.secExt}} secondary</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Max Extents</div>
+            <div>{{vm.fileInfo.maxExtents}}</div>
+          </div>
+          <div ng-if="vm.fileInfo.file_type != 0">
+            <md-divider class="storage-info-divider"></md-divider>
+            <div layout="row">
+              <div class="storage-info-label">Buffer Size</div>
+              <div>{{vm.fileInfo.blockLength}}</div>
+            </div>
+            <md-divider class="storage-info-divider"></md-divider>
+            <div layout="row">
+              <div class="storage-info-label">Record Length</div>
+              <div>{{vm.fileInfo.recLength}}</div>
+            </div>
+            <md-divider class="storage-info-divider"></md-divider>
+            <div layout="row">
+              <div class="storage-info-label">Block Length</div>
+              <div>{{vm.fileInfo.blockLength}}</div>
+            </div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Owner</div>
+            <div>{{vm.fileInfo.ownerString}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Security</div>
+            <div>{{vm.fileInfo.securityString}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Last Modified</div>
+            <div>{{vm.fileInfo.modificationTimeString}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Created</div>
+            <div>{{vm.fileInfo.creationTimeString}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Last Opened</div>
+            <div>{{vm.fileInfo.openTimeString}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">End of File</div>
+            <div>{{vm.fileInfo.eofString}}</div>
+          </div>
+          <md-divider class="storage-info-divider"></md-divider>
+          <div layout="row">
+            <div class="storage-info-label">Extends Allocated</div>
+            <div>{{vm.fileInfo.allocExtents}}</div>
+          </div>
+
+          <div ng-if="vm.fileInfo.fileType != 0">
+            <md-divider class="storage-info-divider"></md-divider>
+            <div layout="row">
+              <div class="storage-info-label">Key Offset</div>
+              <div>{{vm.fileInfo.keyOffset}}</div>
+            </div>
+            <md-divider class="storage-info-divider"></md-divider>
+            <div layout="row">
+              <div class="storage-info-label">Key Length</div>
+              <div>{{vm.fileInfo.keyLen}}</div>
+            </div>
+            <md-divider class="storage-info-divider"></md-divider>
+            <div layout="row">
+              <div class="storage-info-label">Alternate Keys</div>
+              <div>{{vm.fileInfo.altKeyCount}}</div>
+            </div>
+          </div>
+          <div ng-if="vm.fileInfo.altKeyCount > 0">
+            <div ng-repeat="key in vm.fileInfo.altKeys">
+              <md-divider class="storage-info-divider"></md-divider>
+              <div layout="row">
+                <div class="storage-info-label">Alt Key {{$index}}</div>
+                <div>"{{key.keySpecifier}}", File {{key.keyFilenum}}, Keyoff {{key.keyOffset}}, Keylen
+                  {{key.keyLen}}</div>
+              </div>
+            </div>
+          </div>
+          <div ng-if="vm.fileInfo.altFileCount > 0">
+            <div ng-repeat="file in vm.fileInfo.altFiles">
+              <md-divider class="storage-info-divider"></md-divider>
+              <div layout="row">
+                <div class="storage-info-label">Alt Key File {{$index}}</div>
+                <div>{{file}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-whiteframe>
+  </div>
+</md-content>
+
+<div class="storage-progress" ng-if="vm.progress" layout="row" layout-align="center center" flex>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

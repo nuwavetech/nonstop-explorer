@@ -1,0 +1,92 @@
+/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+.layout-sidenav, .layout-sidenav.md-locked-open-add-active, .layout-sidenav.md-locked-open {
+  width: 240px;
+  min-width: 240px;
+  max-width: 240px;
+}
+
+.layout-sidenav>* {
+  min-width: 240px;
+}
+
+.layout-user md-icon {
+  color: white;
+}
+
+.layout-user span {
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  line-height: 25px;
+}
+
+.layout-title {
+    margin:auto;
+    vertical-align:middle;
+    font-size:16px;
+}
+
+.layout-title md-icon {
+  color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.layout-toolbar-menuicon {
+  margin-right: 15px;
+  height: 36px;
+  width: 36px;
+  color: white !important;
+  outline:none;
+}
+
+.layout-toolbar-logo {
+  margin-right: 15px;
+  height:36px;
+  width:36px;
+  margin-top:2px;
+}
+
+.layout-sidenav-item {
+  font-size: 14px;
+  font-weight: 500;
+  height: 43px;
+  line-height: 13px;
+  margin-top: 0px;
+  padding-bottom: 15px;
+  padding-left: 16px;
+  padding-right: 0px;
+  padding-top: 10px;
+}
+
+.layout-sidenav-item md-icon {
+  xheight:36px;
+  xwidth:36px;
+  margin-right:10px;
+}
+
+.layout-sidenav-active {
+  /*color:rgb(33,150,243);*/
+  color:rgb(63, 81, 181);
+}
+
+.layout-sidenav-active md-icon {
+  color:rgb(63, 81, 181);
+}
+
+.layout-sidenav-item:focus {
+  outline: 0;
+}
+
+.layout-sidenav-item:hover {
+  outline: 0;
+  background-color: #f6f6f6;
+}
+
+.layout-sidenav-title {
+  xvertical-align:top;
+  margin-top:10px;
+  font-size:16px;
+}
+
+
