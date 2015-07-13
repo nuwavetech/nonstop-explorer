@@ -48,6 +48,12 @@ Stop the pathway using the PATHMON CLI:
 
         tacl> pathcom <nePathmon-name>; shutdown2
 
+##### Adding the Dictionary to LightWave Server
 
+If you plan to use the server with your own instance of LightWave Server, you must create
+a new dictionary from the DDL. Sign into the LightWave Server Console and navigate to the
+Dictionary Manager. Create a new dictionary using 'io.nuwavetech.nonstopexplorer' as the Dictionary Name and using
+the sample installation subvol as the DDL Dictionary Subvol. More information on creating dictionaries can
+be found in the [LightWave Server Documenation] (http://docs.nuwavetech.com/display/LWSERVER/Using+the+Dictionary+Manager).
 
 
