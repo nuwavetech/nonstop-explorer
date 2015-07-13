@@ -5,7 +5,7 @@ The NonStop Explorer Pathway Server may be built on your system using the follow
 
 ##### Install the Source Code
 
-* Copy the [PAK file] (nepak.pak) file to your NonStop Server. Make sure the file is transferred
+* Copy the [PAK file] (nepak.pak) to your NonStop Server. Make sure the file is transferred
 as a binary file.
 * Unpak the file into a subvol of your choice.
 
@@ -13,7 +13,7 @@ as a binary file.
 
 ##### Build the DDL dictionary and Pathway Server
 
-* Run the nebld macro, which builds the dictionary and the NESVR program. The dictionary build
+* Run the NEBLD macro, which builds the dictionary and the NESVR program. The dictionary build
 process also creates C, COBOL, and TAL definition files.
 
         tacl> run nebld

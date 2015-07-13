@@ -5,10 +5,6 @@ The NonStop Explorer web/Android app may be built on your system using the follo
 
 #### Build the Web Version of the App
 
-Use the following steps to build the web app. Note that the app is built in the 'www' directory,
-not the 'dist' directory normally used by grunt. This is so the Cordova build can use
-the output of the grunt build.
-
 ##### Install System Dependencies
 
 * Install node.js. (http://nodejs.org/)
@@ -44,24 +40,21 @@ _Note that you must build the web version in order to build the Cordova version.
 containing the JDK and the \<JDK\>/bin directory is added to the
 PATH environment variable.
 
-* Install [Apache Ant](http://ant.apache.org/), version 1.8 or greater. Make sure the ANT_HOME environment
-variable is set to the directory containing Ant and the \<Ant\>/bin directory is added to the
-PATH environment variable.
-
-* Install the Android SDK according to the the installation. API 19 must be installed.
-instructions found at [Get the Android SDK](https://developer.android.com/sdk/index.html). Make sure the
-\<SDK\>/platform-tools and \<SDK\>/tools directories are added to the PATH environment variable.
+* Install the Android SDK Stand-Alone Tools according to the the installation instructions found at
+[Installing the Android SDK](https://developer.android.com/sdk/installing/index.html). Note that you
+do not need to install Android Studio, only the Stand-Alone SDK Tools are required.
+Make sure the \<SDK\>/platform-tools and \<SDK\>/tools directories are added to the PATH environment variable.
 
 * Restart your shell or command processor so that the environment changes made by the previous dependencies will take
 effect.
 
-* Install Apache Cordova using this command:
+* Install Apache Cordova using this command. This app requires Cordova version 5.1.1 or greater:
 
         $ npm install -g cordova
 
 ##### Setup the Android Platform
 
-* Add the Android platform to Cordova. Note that this app requires Cordova version 5.1.1 or greater:
+* Add the Android platform to the project. This will also install any required Cordova plugins:
 
         $ cordova platform add android
 

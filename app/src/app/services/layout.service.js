@@ -19,6 +19,7 @@
     var methods = {
       getLayout : getLayout,
       getLayoutChangeEvent : getLayoutChangeEvent,
+      getVersion : getVersion,
       setToolbarTitle : setToolbarTitle,
       returnFromErrorView : returnFromErrorView,
       showDefaultView : showDefaultView,
@@ -81,6 +82,10 @@
 
     function getLayoutChangeEvent() {
       return layoutChangeEvent;
+    }
+
+    function getVersion() {
+      return '2.0.0';
     }
 
     function onStateChangeStart(event, next, current) {

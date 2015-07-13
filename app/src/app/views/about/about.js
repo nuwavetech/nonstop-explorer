@@ -14,7 +14,7 @@
 
     function activate() {
       vm.isCordovaApp = cordova.isCordovaApp();
-      layout.setToolbarTitle('About NonStop Explorer');
+      layout.setToolbarTitle('About NonStop Explorer - ' + layout.getVersion());
     }
 
     function openBrowser(url) {
