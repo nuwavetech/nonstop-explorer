@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+/* Copyright (c) 2016 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
 
 if (typeof XMLHttpRequest == "undefined")
   XMLHttpRequest = function() {
@@ -57,15 +57,15 @@ function getSystemInfo() {
     return;
   }
 
-  /* Build the request. */
+  /* Send the request. */
   var request = {};
   request.data = {};
-  request.data.type = dictionaryName + '.GetSystemInfo';
-  request.data.accept = dictionaryName + '.GetSystemInfoResult';
-  request.data.value = {};
-  request.data.value.requestCode = 5;
+  request.data.requestCode = 5;
+  request.requestType = dictionaryName + '.GetSystemInfo';
+  request.acceptType = dictionaryName + '.GetSystemInfoResult';
+  request.url = url;
 
-  var response = postRequest(request, url);
+  var response = postRequest(request);
 
   return;
 }
@@ -83,15 +83,15 @@ function getCpuList() {
     return;
   }
 
-  /* Build the request. */
+  /* Send the request. */
   var request = {};
   request.data = {};
-  request.data.type = dictionaryName + '.GetCpuList';
-  request.data.accept = dictionaryName + '.GetCpuListResult';
-  request.data.value = {};
-  request.data.value.requestCode = 6;
+  request.data.requestCode = 6;
+  request.requestType = dictionaryName + '.GetCpuList';
+  request.acceptType = dictionaryName + '.GetCpuListResult';
+  request.url = url;
 
-  var response = postRequest(request, url);
+  var response = postRequest(request);
 
   return;
 }
@@ -109,17 +109,17 @@ function getFiles() {
     return;
   }
 
-  /* Build the request. */
+  /* Send the request. */
   var request = {};
   request.data = {};
-  request.data.type = dictionaryName + '.GetFiles';
-  request.data.accept = dictionaryName + '.GetFilesResult';
-  request.data.value = {};
-  request.data.value.requestCode = 3;
-  request.data.value.volume = "$DEMO";
-  request.data.value.subvol = "LWSERVER";
+  request.data.requestCode = 3;
+  request.data.volume = "$OSS";
+  request.data.subvol = "ZX000000";
+  request.requestType = dictionaryName + '.GetFiles';
+  request.acceptType = dictionaryName + '.GetFilesResult';
+  request.url = url;
 
-  var response = postRequest(request, url);
+  var response = postRequest(request);
 
   return;
 }
@@ -137,18 +137,18 @@ function getFileInfo() {
     return;
   }
 
-  /* Build the request. */
+  /* Send the request. */
   var request = {};
   request.data = {};
-  request.data.type = dictionaryName + '.GetFileInfo';
-  request.data.accept = dictionaryName + '.GetFileInfoResult';
-  request.data.value = {};
-  request.data.value.requestCode = 4;
-  request.data.value.volume = "$DEMO";
-  request.data.value.subvol = "LWSERVER";
-  request.data.value.filename = "SERVER";
+  request.data.requestCode = 4;
+  request.data.volume = "$OSS";
+  request.data.subvol = "ZX000000";
+  request.data.filename = "PXLOG";
+  request.requestType = dictionaryName + '.GetFileInfo';
+  request.acceptType = dictionaryName + '.GetFileInfoResult';
+  request.url = url;
 
-  var response = postRequest(request, url);
+  var response = postRequest(request);
 
   return;
 }
@@ -166,16 +166,16 @@ function getSubvols() {
     return;
   }
 
-  /* Build the request. */
+  /* Send the request. */
   var request = {};
   request.data = {};
-  request.data.type = dictionaryName + '.GetSubvols';
-  request.data.accept = dictionaryName + '.GetSubvolsResult';
-  request.data.value = {};
-  request.data.value.requestCode = 2;
-  request.data.value.volume = "$DEMO";
+  request.data.requestCode = 2;
+  request.data.volume = "$OSS";
+  request.requestType = dictionaryName + '.GetSubvols';
+  request.acceptType = dictionaryName + '.GetSubvolsResult';
+  request.url = url;
 
-  var response = postRequest(request, url);
+  var response = postRequest(request);
 
   return;
 }
@@ -193,27 +193,29 @@ function getVolumes() {
     return;
   }
 
-  /* Build the request. */
+  /* Send the request. */
   var request = {};
   request.data = {};
-  request.data.type = dictionaryName + '.GetVolumes';
-  request.data.accept = dictionaryName + '.GetVolumesResult';
-  request.data.value = {};
-  request.data.value.requestCode = 1;
+  request.data.requestCode = 1;
+  request.requestType = dictionaryName + '.GetVolumes';
+  request.acceptType = dictionaryName + '.GetVolumesResult';
+  request.url = url;
 
-  var response = postRequest(request, url);
+  var response = postRequest(request);
 
   return;
 }
 
-function postRequest(request, url) {
+function postRequest(request) {
 
   /* Fill the request display area. */
-  var content = JSON.stringify(request);
+  var content = JSON.stringify(request.data);
   var r = 'POST ' + url + '\r';
   r += 'Content-Type: application/json\r';
-  r += 'Content-Length: ' + content.length + '\r\r';
-  r += JSON.stringify(request, null, 2);
+  r += 'Content-Length: ' + content.length + '\r';
+  r += 'lw-request-type: ' + request.requestType + '\r';
+  r += 'lw-accept-type: ' + request.acceptType + '\r\r';
+  r += JSON.stringify(request.data, null, 2);
   document.getElementById('request').innerHTML = r;
 
   /* Submit the request using the XMLHttpRequest object. */
@@ -221,6 +223,8 @@ function postRequest(request, url) {
     var http = new XMLHttpRequest();
     http.open('POST', url, false);
     http.setRequestHeader('Content-Type', 'application/json');
+    http.setRequestHeader('lw-request-type', request.requestType);
+    http.setRequestHeader('lw-accept-type', request.acceptType);
     http.send(content);
   } catch (e) {
     setMessage(true, 'HTTP error: ' + e.message);

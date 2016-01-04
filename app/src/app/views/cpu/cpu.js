@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+/* Copyright (c) 2016 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
 (function() {
   'use strict';
 
@@ -53,8 +53,8 @@
 
     function refreshView() {
       explorer.getCpuList().then(function(response) {
-        layout.setToolbarTitle(response.data.value.node + ' CPU Status');
-        vm.cpuList = response.data.value.cpuList;
+        layout.setToolbarTitle(response.data.node + ' CPU Status');
+        vm.cpuList = response.data.cpuList;
         for (var i = 0; i < vm.cpuList.cpuCount; i++) {
           if (vm.cpuList.cpu[i].cpuNumber < 10)
             vm.cpuList.cpu[i].cpuNumber = '0' + vm.cpuList.cpu[i].cpuNumber.toString();

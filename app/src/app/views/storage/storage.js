@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+/* Copyright (c) 2016 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
 (function() {
   'use strict';
 
@@ -47,10 +47,10 @@
       switch (vm.displayLevel) {
       case level.NODE:
         explorer.getVols().then(function(response) {
-          vm.location[level.NODE] = response.data.value.node;
-          layout.setToolbarTitle(response.data.value.node + ' Storage');
+          vm.location[level.NODE] = response.data.node;
+          layout.setToolbarTitle(response.data.node + ' Storage');
           vm.breadcrumb = vm.location;
-          vm.displayItems = response.data.value.volumes;
+          vm.displayItems = response.data.volumes;
           stopProgress();
           vm.listView = true;
         }, function(error) {
@@ -60,7 +60,7 @@
         break;
       case level.VOL:
         explorer.getSubvols(vm.location[level.VOL]).then(function(response) {
-          vm.displayItems = response.data.value.subvols;
+          vm.displayItems = response.data.subvols;
           vm.breadcrumb = vm.location;
           stopProgress();
           vm.listView = true;
@@ -71,7 +71,7 @@
         break;
       case level.SUBVOL:
         explorer.getFiles(vm.location[level.VOL], vm.location[level.SUBVOL]).then(function(response) {
-          vm.displayItems = response.data.value.files;
+          vm.displayItems = response.data.files;
           vm.breadcrumb = vm.location;
           stopProgress();
           vm.listView = true;
@@ -84,7 +84,7 @@
         explorer.getFileInfo(vm.location[level.VOL], vm.location[level.SUBVOL],
                 vm.location[level.FILE]).then(
                 function(response) {
-                  vm.fileInfo = response.data.value.fileInfo;
+                  vm.fileInfo = response.data.fileInfo;
                   vm.breadcrumb = vm.location;
 
                   /* Fixup items for display */
