@@ -1,6 +1,6 @@
 NonStop Explorer
 ---
-Version 2.0.0 - 13JUL2015
+Version 2.1.0 - 04JAN2016
 
 The NonStop Explorer sample application demonstrates how a web application or mobile device can exchange
 messages with an HP NonStop Server Pathway application using NuWave Technologies LightWave

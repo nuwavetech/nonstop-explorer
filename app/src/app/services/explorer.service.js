@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+/* Copyright (c) 2016 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
 (function() {
   'use strict';
 
@@ -29,16 +29,18 @@
       var config = {};
       config.headers = {};
       config.headers["Content-Type"] = "application/json";
+      config.headers["lw-request-type"] = request.requestType;
+      config.headers["lw-accept-type"] = request.acceptType;
       config.params = {};
-      config.params['suppress-status'] = true;
+      config.params['lw-suppress-status'] = true;
       config.method = 'POST';
       config.url = getUrl();
-      config.data = request;
+      config.data = request.data;
       $http.defaults.useXDomain = true;
 
       $http(config).then(function(response) {
-        if (response.status == 200 && response.data.http.status == 200) {
-          d.resolve(response.data);
+        if (response.status == 200 && parseInt(response.headers("lw-http-status")) == 200) {
+          d.resolve(response);
         } else {
           d.reject(response);
         }
@@ -51,38 +53,35 @@
 
     function getCpuList() {
       var request = {};
+      request.requestType = dictionaryName + '.GetCpuList';
+      request.acceptType = dictionaryName + '.GetCpuListResult';
       request.data = {};
-      request.data.type = dictionaryName + '.GetCpuList';
-      request.data.accept = dictionaryName + '.GetCpuListResult';
-      request.data.value = {};
-      request.data.value.requestCode = 6;
+      request.data.requestCode = 6;
 
       return callApi(request);
     }
 
     function getFiles(volume, subvol) {
       var request = {};
+      request.requestType = dictionaryName + '.GetFiles';
+      request.acceptType = dictionaryName + '.GetFilesResult';
       request.data = {};
-      request.data.type = dictionaryName + '.GetFiles';
-      request.data.accept = dictionaryName + '.GetFilesResult';
-      request.data.value = {};
-      request.data.value.requestCode = 3;
-      request.data.value.volume = volume;
-      request.data.value.subvol = subvol;
+      request.data.requestCode = 3;
+      request.data.volume = volume;
+      request.data.subvol = subvol;
 
       return callApi(request);
     }
 
     function getFileInfo(volume, subvol, file) {
       var request = {};
+      request.requestType = dictionaryName + '.GetFileInfo';
+      request.acceptType = dictionaryName + '.GetFileInfoResult';
       request.data = {};
-      request.data.type = dictionaryName + '.GetFileInfo';
-      request.data.accept = dictionaryName + '.GetFileInfoResult';
-      request.data.value = {};
-      request.data.value.requestCode = 4;
-      request.data.value.volume = volume;
-      request.data.value.subvol = subvol;
-      request.data.value.filename = file;
+      request.data.requestCode = 4;
+      request.data.volume = volume;
+      request.data.subvol = subvol;
+      request.data.filename = file;
 
       return callApi(request);
     }
@@ -93,12 +92,11 @@
 
     function getSubvols(volume) {
       var request = {};
+      request.requestType = dictionaryName + '.GetSubvols';
+      request.acceptType = dictionaryName + '.GetSubvolsResult';
       request.data = {};
-      request.data.type = dictionaryName + '.GetSubvols';
-      request.data.accept = dictionaryName + '.GetSubvolsResult';
-      request.data.value = {};
-      request.data.value.requestCode = 2;
-      request.data.value.volume = volume;
+      request.data.requestCode = 2;
+      request.data.volume = volume;
 
 
 
@@ -107,22 +105,20 @@
 
     function getSystemInfo() {
       var request = {};
+      request.requestType = dictionaryName + '.GetSystemInfo';
+      request.acceptType = dictionaryName + '.GetSystemInfoResult';
       request.data = {};
-      request.data.type = dictionaryName + '.GetSystemInfo';
-      request.data.accept = dictionaryName + '.GetSystemInfoResult';
-      request.data.value = {};
-      request.data.value.requestCode = 5;
+      request.data.requestCode = 5;
 
       return callApi(request);
     }
 
     function getVols() {
       var request = {};
+      request.requestType = dictionaryName + '.GetVolumes';
+      request.acceptType = dictionaryName + '.GetVolumesResult';
       request.data = {};
-      request.data.type = dictionaryName + '.GetVolumes';
-      request.data.accept = dictionaryName + '.GetVolumesResult';
-      request.data.value = {};
-      request.data.value.requestCode = 1;
+      request.data.requestCode = 1;
 
       return callApi(request);
     }
