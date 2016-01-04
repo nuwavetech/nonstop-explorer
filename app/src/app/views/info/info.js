@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
+/* Copyright (c) 2016 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com) */
 (function() {
   'use strict';
 
@@ -13,8 +13,8 @@
 
     function activate() {
       explorer.getSystemInfo().then(function(response) {
-        vm.info = response.data.value.systemInfo;
-        vm.info.nodeName = response.data.value.node;
+        vm.info = response.data.systemInfo;
+        vm.info.nodeName = response.data.node;
         layout.setToolbarTitle(vm.info.nodeName + ' System Info');
       }, function() {
         layout.showErrorView();
