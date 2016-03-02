@@ -1,0 +1,462 @@
+{
+  "operations": [
+    {
+      "methods": [
+        {
+          "request": {
+            "messageType": "io.nuwavetech.nonstopexplorer.GetCpuList",
+            "cloakingPaths": [
+              "*"
+            ],
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "6"
+                },
+                "target": "requestCode"
+              },
+              {
+                "target": "*",
+                "source": {
+                  "value": "body",
+                  "required": true,
+                  "type": "http"
+                }
+              }
+            ]
+          },
+          "verb": "GET",
+          "responses": [
+            {
+              "replyCode": "0",
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "cpuList"
+                },
+                {
+                  "source": "node",
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  }
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.GetCpuListResult",
+              "transactionControl": "commit"
+            },
+            {
+              "replyCode": "*",
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "*"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult",
+              "transactionControl": "abort"
+            }
+          ],
+          "api": {
+            "transactionControl": false,
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "type": "serverclass",
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            }
+          },
+          "description": "Get a list of CPUs with detail"
+        }
+      ],
+      "path": "/explore/v1/cpu"
+    },
+    {
+      "methods": [
+        {
+          "request": {
+            "messageType": "io.nuwavetech.nonstopexplorer.GetSystemInfo",
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "5"
+                },
+                "target": "requestCode"
+              }
+            ]
+          },
+          "verb": "GET",
+          "responses": [
+            {
+              "replyCode": "0",
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "systemInfo"
+                },
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "node"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.GetSystemInfoResult"
+            },
+            {
+              "replyCode": "*",
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "*"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+            }
+          ],
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "type": "serverclass",
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            }
+          },
+          "description": "Get system information"
+        }
+      ],
+      "path": "/explore/v1/system"
+    },
+    {
+      "methods": [
+        {
+          "request": {
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "1"
+                },
+                "target": "requestCode"
+              }
+            ],
+            "messageType": "io.nuwavetech.nonstopexplorer.GetVolumes"
+          },
+          "verb": "GET",
+          "responses": [
+            {
+              "replyCode": "0",
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "volumes"
+                },
+                {
+                  "source": "node",
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  }
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.GetVolumesResult"
+            },
+            {
+              "replyCode": "*",
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "*"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+            }
+          ],
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "type": "serverclass",
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            }
+          },
+          "description": "Get a list of volumes"
+        }
+      ],
+      "path": "/explore/v1/volume"
+    },
+    {
+      "methods": [
+        {
+          "request": {
+            "messageType": "io.nuwavetech.nonstopexplorer.GetSubvols",
+            "cloakingPaths": [
+              "*"
+            ],
+            "mappings": [
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{volume-id}"
+                },
+                "target": "volume"
+              },
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "2"
+                },
+                "target": "requestCode"
+              }
+            ]
+          },
+          "verb": "GET",
+          "responses": [
+            {
+              "replyCode": "0",
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "subvols"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.GetSubvolsResult"
+            },
+            {
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "*"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult",
+              "cloakingPaths": [],
+              "httpStatus": 400,
+              "replyCode": "*"
+            }
+          ],
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "type": "serverclass",
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            }
+          },
+          "description": "Get a list of subvolumes of the given volume"
+        }
+      ],
+      "path": "/explore/v1/volume/{volume-id}/subvolume"
+    },
+    {
+      "methods": [
+        {
+          "request": {
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "3"
+                },
+                "target": "requestCode"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{volume-id}"
+                },
+                "target": "volume"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{subvolume-name}"
+                },
+                "target": "subvol"
+              }
+            ],
+            "messageType": "io.nuwavetech.nonstopexplorer.GetFiles",
+            "cloakingPaths": []
+          },
+          "verb": "GET",
+          "responses": [
+            {
+              "replyCode": "0",
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "files"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.GetFilesResult"
+            },
+            {
+              "replyCode": "*",
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "*"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+            }
+          ],
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "type": "serverclass",
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            }
+          },
+          "description": "Get a list of files in the given subvolume"
+        }
+      ],
+      "path": "/explore/v1/volume/{volume-id}/subvolume/{subvolume-name}/file"
+    },
+    {
+      "methods": [
+        {
+          "request": {
+            "messageType": "io.nuwavetech.nonstopexplorer.GetFileInfo",
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "4"
+                },
+                "target": "requestCode"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{volume-id}"
+                },
+                "target": "volume"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{subvolume-name}"
+                },
+                "target": "subvol"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{filename}"
+                },
+                "target": "filename"
+              }
+            ]
+          },
+          "verb": "GET",
+          "responses": [
+            {
+              "replyCode": "0",
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "fileInfo"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.GetFileInfoResult"
+            },
+            {
+              "replyCode": "*",
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "target": {
+                    "type": "http",
+                    "value": "body"
+                  },
+                  "source": "*"
+                }
+              ],
+              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+            }
+          ],
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "type": "serverclass",
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            }
+          },
+          "description": "Get information about a file"
+        }
+      ],
+      "path": "/explore/v1/volume/{volume-id}/subvolume/{subvolume-name}/file/{filename}"
+    }
+  ],
+  "description": "Explore the Guardian System",
+  "name": "NonStop-Explorer-API-v1",
+  "id": "031fcb9ee42fa01d77800157c00eca63b6",
+  "timestamp": 1455796777
+}
