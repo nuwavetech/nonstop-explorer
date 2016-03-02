@@ -48,12 +48,15 @@ Stop the pathway using the PATHMON CLI:
 
         tacl> pathcom <nePathmon-name>; shutdown2
 
-##### Adding the Dictionary to LightWave Server
+##### Adding the Dictionary and API definition to LightWave Server
 
-If you plan to use the server with your own instance of LightWave Server, you must create
-a new dictionary from the DDL. Sign into the LightWave Server Console and navigate to the
-Dictionary Manager. Create a new dictionary using 'io.nuwavetech.nonstopexplorer' as the Dictionary Name and using
-the sample installation subvol as the DDL Dictionary Subvol. More information on creating dictionaries can
-be found in the [LightWave Server Documenation] (http://docs.nuwavetech.com/display/LWSERVER/Using+the+Dictionary+Manager).
+If you plan to use the server with your own instance of LightWave Server, you must install the
+dictionary and API definition, and deploy the API as a service. The dictionary and API definitions
+are located in the **resources** directory. For information on installing these resources and
+deploying them as a service, refer to the following resources in the LightWave Server documentation:
+
+* [Working with Dictionaries] (http://docs.nuwavetech.com/display/LWSERVER/Working+with+Dictionaries)
+* [Working with User-Defined APIs] (http://docs.nuwavetech.com/display/LWSERVER/Working+with+User-Defined+APIs)
+* [Deploying APIs as Services] (http://docs.nuwavetech.com/display/LWSERVER/Deploying+APIs+as+Services)
 
 
