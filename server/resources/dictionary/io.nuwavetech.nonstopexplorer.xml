@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<dictionary xmlns="http://schemas.nuwavetech.com/schemas/lightwave/dictionary-1.0.xsd">
+  <types>
+    <type name="ErrorResult" size="258" ddlName="ERROR-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxFUlJPUi1SRVNVTFR8XEFDVDUuJERFTU8uTlNF">
+      <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
+      <element name="description" type="string" offset="2" size="256"/>
+    </type>
+    <type name="GetCpuList" size="18" ddlName="GET-CPU-LIST" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtQ1BVLUxJU1R8XEFDVDUuJERFTU8uTlNF">
+      <element name="requestCode" type="unsignedShort" offset="0" size="2" value="6"/>
+      <element name="node" type="string" offset="2" size="16"/>
+    </type>
+    <type name="GetCpuListResult" size="340" ddlName="GET-CPU-LIST-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtQ1BVLUxJU1QtUkVTVUxUfFxBQ1Q1LiRERU1PLk5TRQ==">
+      <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="cpuList" type="CpuList" offset="18" size="322"/>
+    </type>
+    <type name="CpuList" size="322" ddlName="CPU-LIST" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxDUFUtTElTVHxcQUNUNS4kREVNTy5OU0U=">
+      <element name="cpuCount" type="unsignedShort" offset="0" size="2"/>
+      <element name="cpu" type="Cpu" minOccurs="0" maxOccurs="16" offset="2" size="20" dependsOn="cpuCount"/>
+    </type>
+    <type name="Cpu" size="20" ddlName="CPU" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxDUFV8XEFDVDUuJERFTU8uTlNF">
+      <element name="cpuNumber" type="unsignedShort" offset="0" size="2"/>
+      <element name="name" type="string" offset="2" size="16"/>
+      <element name="busy" type="unsignedShort" offset="18" size="2"/>
+    </type>
+    <type name="GetFileInfo" size="66" ddlName="GET-FILE-INFO" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtRklMRS1JTkZPfFxBQ1Q1LiRERU1PLk5TRQ==">
+      <element name="requestCode" type="unsignedShort" offset="0" size="2" value="4"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="volume" type="string" offset="18" size="16"/>
+      <element name="subvol" type="string" offset="34" size="16"/>
+      <element name="filename" type="string" offset="50" size="16"/>
+    </type>
+    <type name="GetFileInfoResult" size="7940" ddlName="GET-FILE-INFO-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtRklMRS1JTkZPLVJFU1VMVHxcQUNUNS4kREVNTy5OU0U=">
+      <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="volume" type="string" offset="18" size="16"/>
+      <element name="subvol" type="string" offset="34" size="16"/>
+      <element name="filename" type="string" offset="50" size="16"/>
+      <element name="fileInfo" type="FileInfo" offset="66" size="7874"/>
+    </type>
+    <type name="FileInfo" size="7874" ddlName="FILE-INFO" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxGSUxFLUlORk98XEFDVDUuJERFTU8uTlNF">
+      <element name="eof" type="longlong" offset="0" size="8"/>
+      <element name="creationTime" type="longlong" offset="8" size="8"/>
+      <element name="modificationTime" type="longlong" offset="16" size="8"/>
+      <element name="openTime" type="longlong" offset="24" size="8"/>
+      <element name="blockLength" type="unsignedInt" offset="32" size="4"/>
+      <element name="priExt" type="unsignedInt" offset="36" size="4"/>
+      <element name="secExt" type="unsignedInt" offset="40" size="4"/>
+      <element name="securityCode" type="unsignedInt" offset="44" size="4"/>
+      <element name="fileCode" type="unsignedShort" offset="48" size="2"/>
+      <element name="fileFormat" type="unsignedShort" offset="50" size="2"/>
+      <element name="maxExtents" type="unsignedShort" offset="52" size="2"/>
+      <element name="allocExtents" type="unsignedShort" offset="54" size="2"/>
+      <element name="owner" type="unsignedShort" offset="56" size="2"/>
+      <element name="fileType" type="unsignedShort" offset="58" size="2"/>
+      <element name="recLength" type="unsignedInt" offset="60" size="4"/>
+      <element name="keyOffset" type="unsignedInt" offset="64" size="4"/>
+      <element name="keyLen" type="unsignedShort" offset="68" size="2"/>
+      <element name="altKeyCount" type="unsignedShort" offset="70" size="2"/>
+      <element name="altFileCount" type="unsignedShort" offset="72" size="2"/>
+      <!--@LightWaveAttribute(dependsOn="alt-key-count")-->
+      <element name="altKeys" type="AltKey" minOccurs="0" maxOccurs="100" offset="74" size="14" dependsOn="altKeyCount"/>
+      <!--@LightWaveAttribute(dependsOn="alt-file-count")-->
+      <element name="altFiles" type="string" minOccurs="0" maxOccurs="100" offset="1474" size="64" dependsOn="altFileCount"/>
+    </type>
+    <type name="AltKey" size="14" ddlName="ALT-KEY" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxBTFQtS0VZfFxBQ1Q1LiRERU1PLk5TRQ==">
+      <element name="keySpecifier" type="string" offset="0" size="2"/>
+      <element name="keyLen" type="unsignedShort" offset="2" size="2"/>
+      <element name="keyOffset" type="unsignedInt" offset="4" size="4"/>
+      <element name="keyFilenum" type="unsignedShort" offset="8" size="2"/>
+      <element name="nullValue" type="unsignedShort" offset="10" size="2"/>
+      <element name="attributes" type="unsignedShort" offset="12" size="2"/>
+    </type>
+    <type name="GetFiles" size="50" ddlName="GET-FILES" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtRklMRVN8XEFDVDUuJERFTU8uTlNF">
+      <element name="requestCode" type="unsignedShort" offset="0" size="2" value="3"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="volume" type="string" offset="18" size="16"/>
+      <element name="subvol" type="string" offset="34" size="16"/>
+    </type>
+    <type name="GetFilesResult" size="16436" ddlName="GET-FILES-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtRklMRVMtUkVTVUxUfFxBQ1Q1LiRERU1PLk5TRQ==">
+      <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="volume" type="string" offset="18" size="16"/>
+      <element name="subvol" type="string" offset="34" size="16"/>
+      <element name="itemCount" type="short" offset="50" size="2"/>
+      <element name="files" type="string" minOccurs="0" maxOccurs="1024" offset="52" size="16" dependsOn="itemCount"/>
+    </type>
+    <type name="GetSubvols" size="34" ddlName="GET-SUBVOLS" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtU1VCVk9MU3xcQUNUNS4kREVNTy5OU0U=">
+      <element name="requestCode" type="unsignedShort" offset="0" size="2" value="2"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="volume" type="string" offset="18" size="16"/>
+    </type>
+    <type name="GetSubvolsResult" size="16420" ddlName="GET-SUBVOLS-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtU1VCVk9MUy1SRVNVTFR8XEFDVDUuJERFTU8uTlNF">
+      <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="volume" type="string" offset="18" size="16"/>
+      <element name="itemCount" type="unsignedShort" offset="34" size="2"/>
+      <element name="subvols" type="string" minOccurs="0" maxOccurs="1024" offset="36" size="16" dependsOn="itemCount"/>
+    </type>
+    <type name="GetSystemInfo" size="2" ddlName="GET-SYSTEM-INFO" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtU1lTVEVNLUlORk98XEFDVDUuJERFTU8uTlNF">
+      <element name="requestCode" type="unsignedShort" offset="0" size="2" value="5"/>
+    </type>
+    <type name="GetSystemInfoResult" size="54" ddlName="GET-SYSTEM-INFO-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtU1lTVEVNLUlORk8tUkVTVUxUfFxBQ1Q1LiRERU1PLk5TRQ==">
+      <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="systemInfo" type="SystemInfo" offset="18" size="36"/>
+    </type>
+    <type name="GetVolumes" size="18" ddlName="GET-VOLUMES" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtVk9MVU1FU3xcQUNUNS4kREVNTy5OU0U=">
+      <element name="requestCode" type="unsignedShort" offset="0" size="2" value="1"/>
+      <element name="node" type="string" offset="2" size="16"/>
+    </type>
+    <type name="GetVolumesResult" size="16404" ddlName="GET-VOLUMES-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxHRVQtVk9MVU1FUy1SRVNVTFR8XEFDVDUuJERFTU8uTlNF">
+      <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
+      <element name="node" type="string" offset="2" size="16"/>
+      <element name="itemCount" type="unsignedShort" offset="18" size="2"/>
+      <element name="volumes" type="string" minOccurs="0" maxOccurs="1024" offset="20" size="16" dependsOn="itemCount"/>
+    </type>
+    <type name="SystemInfo" size="36" ddlName="SYSTEM-INFO" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxTWVNURU0tSU5GT3xcQUNUNS4kREVNTy5OU0U=">
+      <element name="nodeNumber" type="int" offset="0" size="4"/>
+      <element name="systemSubvol" type="string" offset="4" size="16"/>
+      <element name="rvu" type="string" offset="20" size="16"/>
+    </type>
+  </types>
+</dictionary>
