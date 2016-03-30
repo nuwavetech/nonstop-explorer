@@ -238,7 +238,7 @@ function sendRequest(request) {
     r += 'Content-Type: application/json\r';
     r += 'Content-Length: ' + content.length + '\r';
     r += 'lw-request-type: ' + request.requestType + '\r';
-    r += 'lw-accept-type: ' + request.acceptType + '\r\r';
+    r += 'lw-response-type: ' + request.acceptType + '\r\r';
     r += JSON.stringify(request.data, null, 2);
   } else {
     r += 'Content-Length: 0\r\r';
@@ -254,7 +254,7 @@ function sendRequest(request) {
     if (request.method === 'POST') {
       http.setRequestHeader('Content-Type', 'application/json');
       http.setRequestHeader('lw-request-type', request.requestType);
-      http.setRequestHeader('lw-accept-type', request.acceptType);
+      http.setRequestHeader('lw-response-type', request.acceptType);
       http.send(content);
     } else {
       http.send();
