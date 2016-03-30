@@ -5,7 +5,7 @@ The NonStop Explorer Pathway Server may be built on your system using the follow
 
 ##### Install the Source Code
 
-* Copy the [PAK file] (nepak.pak) to your NonStop Server. Make sure the file is transferred
+* Copy the [PAK file] (http://cdn.nuwavetech.com/pub/lightwave/sample/nepak.pak) to your NonStop Server. Make sure the file is transferred
 as a binary file.
 * Unpak the file into a subvol of your choice.
 
