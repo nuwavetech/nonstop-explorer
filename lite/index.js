@@ -31,19 +31,9 @@ function getCpuList() {
     return;
   }
 
-  if (isUserApiSelected() === true) {
-    var request = {};
-    request.method = 'GET';
-    request.url = getServerUrlPrefix() + '/explore/v1/cpu';
-  } else {
-    var request = {};
-    request.data = {};
-    request.data.requestCode = 6;
-    request.requestType = dictionaryName + '.GetCpuList';
-    request.acceptType = dictionaryName + '.GetCpuListResult';
-    request.method = 'POST';
-    request.url = getNativeApiUrl();
-  }
+  var request = {};
+  request.method = 'GET';
+  request.url = getServerUrlPrefix() + '/explore/v1/cpu';
 
   var response = sendRequest(request);
 
@@ -58,21 +48,9 @@ function getFiles() {
     return;
   }
 
-  if (isUserApiSelected() === true) {
-    var request = {};
-    request.method = 'GET';
-    request.url = getServerUrlPrefix() + '/explore/v1/volume/$oss/subvolume/zx000000/file';
-  } else {
-    var request = {};
-    request.data = {};
-    request.data.requestCode = 3;
-    request.data.volume = "$OSS";
-    request.data.subvol = "ZX000000";
-    request.requestType = dictionaryName + '.GetFiles';
-    request.acceptType = dictionaryName + '.GetFilesResult';
-    request.method = 'POST';
-    request.url = getNativeApiUrl();
-  }
+  var request = {};
+  request.method = 'GET';
+  request.url = getServerUrlPrefix() + '/explore/v1/volume/$oss/subvolume/safe/file';
 
   var response = sendRequest(request);
 
@@ -87,35 +65,13 @@ function getFileInfo() {
     return;
   }
 
-  if (isUserApiSelected() === true) {
-    var request = {};
-    request.method = 'GET';
-    request.url = getServerUrlPrefix() + '/explore/v1/volume/$oss/subvolume/zx000000/file/pxlog';
-  } else {
-    var request = {};
-    request.data = {};
-    request.data.requestCode = 4;
-    request.data.volume = "$OSS";
-    request.data.subvol = "ZX000000";
-    request.data.filename = "PXLOG";
-    request.requestType = dictionaryName + '.GetFileInfo';
-    request.acceptType = dictionaryName + '.GetFileInfoResult';
-    request.method = 'POST';
-    request.url = getNativeApiUrl();
-  }
+  var request = {};
+  request.method = 'GET';
+  request.url = getServerUrlPrefix() + '/explore/v1/volume/$oss/subvolume/safe/file/guard';
 
   var response = sendRequest(request);
 
   return;
-}
-
-function getNativeApiUrl() {
-  var prefix = getServerUrlPrefix();
-  if (typeof prefix === 'undefined') {
-    return;
-  }
-
-  return prefix + '/lightwave/api/v1/serverclass/=ne^pathmon/nesvr';
 }
 
 function getServerUrlPrefix() {
@@ -137,20 +93,9 @@ function getSubvols() {
     return;
   }
 
-  if (isUserApiSelected() === true) {
-    var request = {};
-    request.method = 'GET';
-    request.url = getServerUrlPrefix() + '/explore/v1/volume/$oss/subvolume';
-  } else {
-    var request = {};
-    request.data = {};
-    request.data.requestCode = 2;
-    request.data.volume = "$OSS";
-    request.requestType = dictionaryName + '.GetSubvols';
-    request.acceptType = dictionaryName + '.GetSubvolsResult';
-    request.method = 'POST';
-    request.url = getNativeApiUrl();
-  }
+  var request = {};
+  request.method = 'GET';
+  request.url = getServerUrlPrefix() + '/explore/v1/volume/$oss/subvolume';
 
   var response = sendRequest(request);
 
@@ -165,19 +110,9 @@ function getSystemInfo() {
     return;
   }
 
-  if (isUserApiSelected() === true) {
-    var request = {};
-    request.method = 'GET';
-    request.url = getServerUrlPrefix() + '/explore/v1/system';
-  } else {
-    var request = {};
-    request.data = {};
-    request.data.requestCode = 5;
-    request.requestType = dictionaryName + '.GetSystemInfo';
-    request.acceptType = dictionaryName + '.GetSystemInfoResult';
-    request.method = 'POST';
-    request.url = getNativeApiUrl();
-  }
+  var request = {};
+  request.method = 'GET';
+  request.url = getServerUrlPrefix() + '/explore/v1/system';
 
   var response = sendRequest(request);
 
@@ -192,34 +127,13 @@ function getVolumes() {
     return;
   }
 
-  if (isUserApiSelected() === true) {
-    var request = {};
-    request.method = 'GET';
-    request.url = getServerUrlPrefix() + '/explore/v1/volume';
-  } else {
-    var request = {};
-    request.data = {};
-    request.data.requestCode = 1;
-    request.requestType = dictionaryName + '.GetVolumes';
-    request.acceptType = dictionaryName + '.GetVolumesResult';
-    request.method = 'POST';
-    request.url = getNativeApiUrl();
-  }
+  var request = {};
+  request.method = 'GET';
+  request.url = getServerUrlPrefix() + '/explore/v1/volume';
 
   var response = sendRequest(request);
 
   return;
-}
-
-function isUserApiSelected() {
-  var apis = document.getElementsByName('api');
-  for (var i = 0, length = apis.length; i < length; i++) {
-    if (apis[i].value === 'user' && apis[i].checked) {
-      return true;
-    }
-  }
-
-  return false;
 }
 
 function resetPage() {
@@ -233,32 +147,13 @@ function sendRequest(request) {
   /* Fill the request display area. */
   var r = request.method + ' ' + request.url + '\r';
 
-  if (request.method === 'POST') {
-    var content = JSON.stringify(request.data);
-    r += 'Content-Type: application/json\r';
-    r += 'Content-Length: ' + content.length + '\r';
-    r += 'lw-request-type: ' + request.requestType + '\r';
-    r += 'lw-response-type: ' + request.acceptType + '\r\r';
-    r += JSON.stringify(request.data, null, 2);
-  } else {
-    r += 'Content-Length: 0\r\r';
-  }
-
   document.getElementById('request').innerHTML = r;
 
   /* Submit the request using the XMLHttpRequest object. */
   try {
     var http = new XMLHttpRequest();
     http.open(request.method, request.url, false);
-
-    if (request.method === 'POST') {
-      http.setRequestHeader('Content-Type', 'application/json');
-      http.setRequestHeader('lw-request-type', request.requestType);
-      http.setRequestHeader('lw-response-type', request.acceptType);
-      http.send(content);
-    } else {
-      http.send();
-    }
+    http.send();
   } catch (e) {
     setMessage(true, 'HTTP error: ' + e.message);
     return;

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<dictionary xmlns="http://schemas.nuwavetech.com/schemas/lightwave/dictionary-1.0.xsd">
+<dictionary xmlns="http://schemas.nuwavetech.com/schemas/lightwave/dictionary-1.0.xsd" name="io.nuwavetech.nonstopexplorer" id="0749edc07692791d77800101000000d650">
   <types>
     <type name="ErrorResult" size="258" ddlName="ERROR-RESULT" ddlModified="2014-09-09T08:55" ddlOrigin="MXxJRHxFUlJPUi1SRVNVTFR8XEFDVDUuJERFTU8uTlNF">
       <element name="resultCode" type="unsignedShort" offset="0" size="2"/>
