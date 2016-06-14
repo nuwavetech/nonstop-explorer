@@ -20,7 +20,7 @@
                 }
               }
             ],
-            "messageType": "io.nuwavetech.nonstopexplorer.GetCpuList"
+            "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetCpuList" }
           },
           "responses": [
             {
@@ -43,7 +43,7 @@
                   "source": "node"
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.GetCpuListResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetCpuListResult" }
             },
             {
               "transactionControl": "abort",
@@ -58,7 +58,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "ErrorResult" }
             }
           ],
           "api": {
@@ -85,7 +85,7 @@
       "methods": [
         {
           "request": {
-            "messageType": "io.nuwavetech.nonstopexplorer.GetSystemInfo",
+            "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetSystemInfo" },
             "mappings": [
               {
                 "target": "requestCode",
@@ -116,7 +116,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.GetSystemInfoResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetSystemInfoResult" }
             },
             {
               "httpStatus": 400,
@@ -130,7 +130,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "ErrorResult" }
             }
           ],
           "api": {
@@ -165,7 +165,7 @@
                 }
               }
             ],
-            "messageType": "io.nuwavetech.nonstopexplorer.GetVolumes"
+            "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetVolumes" }
           },
           "responses": [
             {
@@ -187,7 +187,7 @@
                   "source": "node"
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.GetVolumesResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetVolumesResult" }
             },
             {
               "httpStatus": 400,
@@ -201,7 +201,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "ErrorResult" }
             }
           ],
           "api": {
@@ -246,7 +246,7 @@
                 }
               }
             ],
-            "messageType": "io.nuwavetech.nonstopexplorer.GetSubvols"
+            "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetSubvols" }
           },
           "responses": [
             {
@@ -261,7 +261,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.GetSubvolsResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetSubvolsResult" }
             },
             {
               "mappings": [
@@ -274,7 +274,7 @@
                 }
               ],
               "cloakingPaths": [],
-              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult",
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "ErrorResult" },
               "replyCode": "*",
               "httpStatus": 400
             }
@@ -326,7 +326,7 @@
               }
             ],
             "cloakingPaths": [],
-            "messageType": "io.nuwavetech.nonstopexplorer.GetFiles"
+            "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetFiles" }
           },
           "responses": [
             {
@@ -341,7 +341,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.GetFilesResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetFilesResult" }
             },
             {
               "httpStatus": 400,
@@ -355,7 +355,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "ErrorResult" }
             }
           ],
           "api": {
@@ -381,7 +381,7 @@
       "methods": [
         {
           "request": {
-            "messageType": "io.nuwavetech.nonstopexplorer.GetFileInfo",
+            "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetFileInfo" },
             "mappings": [
               {
                 "target": "requestCode",
@@ -426,7 +426,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.GetFileInfoResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "GetFileInfoResult" }
             },
             {
               "httpStatus": 400,
@@ -440,7 +440,7 @@
                   }
                 }
               ],
-              "messageType": "io.nuwavetech.nonstopexplorer.ErrorResult"
+              "messageType": { "dictionary": "0749edc07692791d77800101000000d650", "definition": "ErrorResult" }
             }
           ],
           "api": {
