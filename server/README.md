@@ -8,26 +8,27 @@ The NonStop Explorer Pathway Server may be built on your system using the follow
 * Copy the [PAK file] (http://cdn.nuwavetech.com/pub/lightwave/sample/nepak.pak) to your NonStop Server. Make sure the file is transferred
 as a binary file.
 * Unpak the file into a subvol of your choice.
-
-        tacl> unpak nepak ($*.*.*), listall, myid, vol <your-subvol>
-
+```
+  tacl> unpak nepak ($*.*.*), listall, myid, vol <your-subvol>
+```
 ##### Build the DDL dictionary and Pathway Server
 
 * Run the NEBLD macro, which builds the dictionary and the NESVR program. The dictionary build
 process also creates C, COBOL, and TAL definition files.
-
-        tacl> run nebld
-
+```
+  tacl> run nebld
+```
 ##### Configuring the Pathway
 
 The NESTART TACL macro starts and configures the Pathmon. The macro contains a section that
 must be configured for your system. The customizable parameters appear in the following block:
-
-        == Customize these parameters for your system
-        #set console $zhome
-        #set volumes $dsmscm, $oss
-        #set nePathmon $nepm
-        == End of customization
+```
+  == Customize these parameters for your system
+  #set console $zhome
+  #set volumes $dsmscm, $oss
+  #set nePathmon $nepm
+  == End of customization
+```
 
 Customize these parameters accordingly:
 
@@ -39,15 +40,15 @@ of storage requests to a specific list of volumes.
 ##### Starting the Pathway
 
 Start the pathway by running the NESTART TACL macro:
-
-        tacl> run nestart
-
+```
+  tacl> run nestart
+```
 ##### Stopping the Pathway
 
 Stop the pathway using the PATHMON CLI:
-
-        tacl> pathcom <nePathmon-name>; shutdown2
-
+```
+  tacl> pathcom <nePathmon-name>; shutdown2
+```
 ##### Adding the Dictionary and API definition to LightWave Server
 
 If you plan to use the server with your own instance of LightWave Server, you must install the
@@ -59,4 +60,9 @@ deploying them as a service, refer to the following resources in the LightWave S
 * [Working with User-Defined APIs] (http://docs.nuwavetech.com/display/LWSERVER/Working+with+User-Defined+APIs)
 * [Deploying APIs as Services] (http://docs.nuwavetech.com/display/LWSERVER/Deploying+APIs+as+Services)
 
+The API definition references the DEFINE name "=NE^PATHMON" as the PATHMON process name used by LightWave Server when the API is called. In order for LightWave to be able to resolve =NE^PATHMON at run time, the define must be added to your TACL environment prior to starting LightWave Server:
+```
+  tacl> add define =NE^PATHMON, class MAP, file <nePathmon-name>
+  tacl> run server ...
+```  
 
