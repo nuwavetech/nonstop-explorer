@@ -3,17 +3,22 @@
 
 #frame
 
-== Build the dictionary.
+[#IF [#FILEINFO / MODIFICATION / NEDDL] > [#FILEINFO / MODIFICATION / NESVRH] |THEN|
 
-ddl /inline/
-inlprefix +
-+ ?dict !
-+ ?c nesvrh !
-+ ?cobol necopy !
-+ ?tal nedec !
-+ ?source neddl
-+ ?noc
-inleof
+== Build the dictionary
+
+  ddl /inline/
+  inlprefix +
+  + ?dict !
+  + ?noexpandc
+  + ?c nesvrh !
+==  + ?cobol necopy !
+==  + ?tal nedec !
+  + ?source neddl
+  + ?noc
+  inleof
+
+]
 
 #push compiler
 #push host_arch
@@ -31,7 +36,8 @@ inleof
 
 purge nesvrl
 purge nesvr
+
 [compiler] / in nesvrc, out nesvrl / nesvr ; extensions, runnable, saveabend, symbols, inspect, &
-SSV0 "[#defaults/current/]", SSV1 "$system.system", SSV2 "$system.zsysdefs"
+  SSV0 "[#defaults/current/]", SSV1 "$system.system", SSV2 "$system.zsysdefs"
 
 #unframe
