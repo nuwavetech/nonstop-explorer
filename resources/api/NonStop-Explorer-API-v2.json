@@ -1,0 +1,653 @@
+{
+  "description": "Explore the Guardian System",
+  "id": "0382ec522286051d788001010000012ef1",
+  "isBrief": false,
+  "isNative": false,
+  "modificationTime": 1512752996,
+  "name": "NonStop-Explorer-API-v2",
+  "operations": [
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionControl": false,
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "cacheControl": {
+            "enabled": false,
+            "maxAge": 60
+          },
+          "description": "Get a list of CPUs with detail",
+          "request": {
+            "cloakingPaths": [
+              "*"
+            ],
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "6"
+                },
+                "target": "requestCode"
+              }
+            ],
+            "messageType": {
+              "definition": "GetCpuList",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "cpuList",
+                  "target": {
+                    "type": "body",
+                    "value": "cpuList"
+                  }
+                },
+                {
+                  "source": "node",
+                  "target": {
+                    "type": "body",
+                    "value": "node"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetCpuListResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0",
+              "transactionControl": "commit"
+            },
+            {
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "source": "*",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "ErrorResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "*",
+              "transactionControl": "abort"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v1/cpu"
+    },
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "description": "Get system information",
+          "request": {
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "5"
+                },
+                "target": "requestCode"
+              }
+            ],
+            "messageType": {
+              "definition": "GetSystemInfo",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "systemInfo",
+                  "target": {
+                    "type": "body",
+                    "value": "systemInfo"
+                  }
+                },
+                {
+                  "source": "node",
+                  "target": {
+                    "type": "body",
+                    "value": "node"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetSystemInfoResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0"
+            },
+            {
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "source": "*",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "ErrorResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "*"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v1/system"
+    },
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "description": "Get a list of volumes",
+          "request": {
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "1"
+                },
+                "target": "requestCode"
+              }
+            ],
+            "messageType": {
+              "definition": "GetVolumes",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "volumes",
+                  "target": {
+                    "type": "body",
+                    "value": "volumes"
+                  }
+                },
+                {
+                  "source": "node",
+                  "target": {
+                    "type": "body",
+                    "value": "node"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetVolumesResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0"
+            },
+            {
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "source": "*",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "ErrorResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "*"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v1/volume"
+    },
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "description": "Get a list of subvolumes of the given volume",
+          "request": {
+            "cloakingPaths": [
+              "*"
+            ],
+            "mappings": [
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{volume-id}"
+                },
+                "target": "volume"
+              },
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "2"
+                },
+                "target": "requestCode"
+              }
+            ],
+            "messageType": {
+              "definition": "GetSubvols",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "subvols",
+                  "target": {
+                    "type": "body",
+                    "value": "subvols"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetSubvolsResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0"
+            },
+            {
+              "cloakingPaths": [],
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "source": "*",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "ErrorResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "*"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v1/volume/{volume-id}/subvolume"
+    },
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "description": "Get a list of files in the given subvolume",
+          "request": {
+            "cloakingPaths": [],
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "3"
+                },
+                "target": "requestCode"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{volume-id}"
+                },
+                "target": "volume"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{subvolume-name}"
+                },
+                "target": "subvol"
+              }
+            ],
+            "messageType": {
+              "definition": "GetFiles",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "files",
+                  "target": {
+                    "type": "body",
+                    "value": "files"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetFilesResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0"
+            },
+            {
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "source": "*",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "ErrorResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "*"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v1/volume/{volume-id}/subvolume/{subvolume-name}/file"
+    },
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "description": "Get information about a file",
+          "request": {
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "4"
+                },
+                "target": "requestCode"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{volume-id}"
+                },
+                "target": "volume"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{subvolume-name}"
+                },
+                "target": "subvol"
+              },
+              {
+                "source": {
+                  "type": "path",
+                  "value": "{filename}"
+                },
+                "target": "filename"
+              }
+            ],
+            "messageType": {
+              "definition": "GetFileInfo",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "fileInfo",
+                  "target": {
+                    "type": "body",
+                    "value": "fileInfo"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetFileInfoResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0"
+            },
+            {
+              "httpStatus": 400,
+              "mappings": [
+                {
+                  "source": "*",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "ErrorResult",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "*"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v1/volume/{volume-id}/subvolume/{subvolume-name}/file/{filename}"
+    },
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "cacheControl": {
+            "enabled": false,
+            "maxAge": 60
+          },
+          "description": "Get CPU info",
+          "request": {
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "16"
+                },
+                "target": "requestCode"
+              }
+            ],
+            "messageType": {
+              "definition": "GetCpuInfo",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "cloakingPaths": [
+                "response.cpuCount"
+              ],
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "response",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetCpuInfoReply",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v2/cpus"
+    },
+    {
+      "methods": [
+        {
+          "api": {
+            "processName": {
+              "type": "constant",
+              "value": "=NE^PATHMON"
+            },
+            "serverclass": {
+              "type": "constant",
+              "value": "NESVR"
+            },
+            "stringPadding": "zeros",
+            "transactionTimeout": 0,
+            "type": "serverclass"
+          },
+          "cacheControl": {
+            "enabled": false,
+            "maxAge": 60
+          },
+          "description": "CPU Busy",
+          "request": {
+            "mappings": [
+              {
+                "source": {
+                  "type": "constant",
+                  "value": "17"
+                },
+                "target": "requestCode"
+              }
+            ],
+            "messageType": {
+              "definition": "GetCpuBusy",
+              "dictionary": "0749edc07692791d77800101000000d650"
+            }
+          },
+          "responses": [
+            {
+              "cloakingPaths": [
+                "response.cpuCount"
+              ],
+              "httpStatus": 200,
+              "mappings": [
+                {
+                  "source": "response",
+                  "target": {
+                    "type": "body",
+                    "value": "*"
+                  }
+                }
+              ],
+              "messageType": {
+                "definition": "GetCpuBusyReply",
+                "dictionary": "0749edc07692791d77800101000000d650"
+              },
+              "replyCode": "0"
+            }
+          ],
+          "verb": "GET"
+        }
+      ],
+      "path": "/explore/v2/cpus/busy"
+    }
+  ],
+  "timestamp": 1456950257
+}

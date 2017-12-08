@@ -10,7 +10,7 @@
 == Customize these parameters for your system
 #set console $zhome
 #set volumes $dsmscm, $oss
-#set nePathmon $nepm
+#set nePathmon $dmne
 == End of customization
 
 #output Using Pathmon name [nePathmon]
@@ -76,6 +76,13 @@ inlprefix +
 + set server in             [console]
 + set server out            [console]
 + set server param          volumes "[volumes]"
+
+== set maxcpus to the number of installed cpus
++ set server param          maxcpus 4
+
+== set interval to the cpu status interval in hsecs
++ set server param          interval 200
+
 + add server nesvr
 
 + start server *

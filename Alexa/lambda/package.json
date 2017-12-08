@@ -1,0 +1,28 @@
+{
+  "name": "nonstop-explorer-skill",
+  "version": "1.0.0",
+  "description": "AWS Lambda function implementing Alex Skills for NonStop Explorer",
+  "main": "index.js",
+  "files": [
+    "./config.js"
+  ],
+  "dependencies": {
+    "alexa-sdk": "^1.0.6",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-install": "^0.6.0",
+    "gulp-zip": "^3.2.0",
+    "node-aws-lambda": "^0.1.8",
+    "run-sequence": "^1.2.2"
+  },
+  "scripts": {
+    "test": "node test/SkillDriver get-cpu-status"
+  },
+  "author": "NuWave Technologies, Inc.",
+  "email": "support@nuwavetech.com",
+  "repository": "nuwavetech/nonstop-explorer",
+  "license": "MIT"
+}

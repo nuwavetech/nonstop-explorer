@@ -1,23 +1,26 @@
 *   Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com)
-
+  
 ?COMMENTS
 
-Constant REQUEST-GET-VOLUMES      value 1.
-Constant REQUEST-GET-SUBVOLS      value 2.
-Constant REQUEST-GET-FILES        value 3.
-Constant REQUEST-GET-FILE-INFO    value 4.
-Constant REQUEST-GET-SYSTEM-INFO  value 5.
-Constant REQUEST-GET-CPU-LIST     value 6.
+Constant REQUEST-GET-VOLUMES         value 1.
+Constant REQUEST-GET-SUBVOLS         value 2.
+Constant REQUEST-GET-FILES           value 3.
+Constant REQUEST-GET-FILE-INFO       value 4.
+Constant REQUEST-GET-SYSTEM-INFO     value 5.
+Constant REQUEST-GET-CPU-LIST        value 6.
 
-Constant RESULT-SUCCESS         value 0.
-Constant RESULT-ACCESS-DENIED   value 2.
-Constant RESULT-INVALID-REQUEST value 8995.
+Constant REQUEST-GET-CPU-INFO        value 16.
+Constant REQUEST-GET-CPU-BUSY        value 17.
 
-Constant MAX-ITEMS              value 1024.
-Constant MAX-ALT-KEYS           value 100.
+Constant RESULT-SUCCESS              value 0.
+Constant RESULT-ACCESS-DENIED        value 2.
+Constant RESULT-INVALID-REQUEST      value 8995.
+
+Constant MAX-ITEMS                   value 1024.
+Constant MAX-ALT-KEYS                value 100.
 
 DEF REQUEST-CODE    PIC 9(4) COMP.
-DEF RESULT-CODE     PIC 9(4) COMP.
+DEF RESULT-CODE     PIC 9(4) COMP. 
 DEF ITEM-NAME       PIC X(16).
 DEF INT16           PIC S9(4) COMP.
 DEF INT32           PIC S9(8) COMP.
@@ -77,12 +80,12 @@ DEF GET-FILE-INFO.
 END.
 
 DEF ALT-KEY.
-  02    KEY-SPECIFIER       PIC X(2).
-  02    KEY-LEN             TYPE UINT16.
-  02  KEY-OFFSET            TYPE UINT32.
-  02  KEY-FILENUM           TYPE UINT16.
-  02  NULL-VALUE            TYPE UINT16.
-  02  ATTRIBUTES          TYPE UINT16.
+  02 KEY-SPECIFIER          PIC X(2).
+  02 KEY-LEN                TYPE UINT16.
+  02 KEY-OFFSET             TYPE UINT32.
+  02 KEY-FILENUM            TYPE UINT16.
+  02 NULL-VALUE             TYPE UINT16.
+  02 ATTRIBUTES             TYPE UINT16.
 END.
 
 DEF FILE-INFO.
@@ -157,6 +160,43 @@ DEF GET-CPU-LIST-RESULT.
   02 NODE           TYPE ITEM-NAME.
   02 CPU-LIST       TYPE *.
 END.
+
+
+CONSTANT MAX-CPUS   VALUE 16.
+
+DEF GET-CPU-INFO.
+  02 REQUEST-CODE   TYPE * VALUE REQUEST-GET-CPU-INFO.
+END.
+
+DEF CPU-INFO.
+  05 CPU-COUNT      TYPE BINARY 16.
+  05 INFO           OCCURS 1 TO MAX-CPUS TIMES DEPENDING ON CPU-COUNT.
+    10 CPU-ID       TYPE BINARY 16.
+    10 STATE        TYPE BINARY 16.
+    10 NAME         PIC X(16).
+END.
+
+DEF GET-CPU-INFO-REPLY.
+  05 REPLY-CODE     TYPE BINARY 16.
+  05 RESPONSE       TYPE CPU-INFO.
+END.
+
+DEF GET-CPU-BUSY.
+  02 REQUEST-CODE   TYPE * VALUE REQUEST-GET-CPU-BUSY.
+END.
+
+DEF CPU-BUSY.
+  05 TIMESTAMP      TYPE BINARY 64.
+  05 CPU-COUNT      TYPE BINARY 16. 
+  05 BUSY           TYPE BINARY 16 OCCURS 1 TO MAX-CPUS TIMES DEPENDING ON CPU-COUNT.
+END.
+
+DEF GET-CPU-BUSY-REPLY.
+  05 REPLY-CODE     TYPE BINARY 16.
+  05 RESPONSE       TYPE CPU-BUSY.
+END.
+
+
 
 DEF ERROR-RESULT.
   02 RESULT-CODE    TYPE *.
