@@ -3,6 +3,6 @@
 
 #frame
 
-pak -purge nepak (nebld,nestart,nesvrc,neddl)
+pak -purge nepak (build,nestart,nesvrc,vproch,neddl,nesvr)
 
 #unframe

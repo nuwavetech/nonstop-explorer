@@ -2,25 +2,40 @@
  *  Copyright (c) 2015 NuWave Technologies, Inc. All rights reserved. (www.nuwavetech.com)
  */
 
+#if defined __TANDEM
 #pragma nolist
+#define OMIT
+#else
+#define OMIT 0
+#endif
 
 #include <cextdecs>
 #include <tal.h>
 #include <zsysc>
+#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include "nesvr.h"
 
+#if defined __TANDEM
 #pragma list
+#endif
 
-#define OMIT /**/
+void T9999A00_01DEC2017_NuWave_NonStopExplorer_1_1_0(void) {}
+
+#define min(a,b) ((a) < (b) ? (a) : (b))
 
 static int volumeCount;
 static char* volume[128];
 static char* volumes;
 static char node[32];
+static short nodeNameLength;
+static int maxcpus = 2;
+
+static void getCpuBusy( get_cpu_busy_def* request );
+static void getCpuInfo( get_cpu_info_def* request );
 
 static void getCpuList(short* request);
 static void getFileInfo(short* request);
@@ -30,27 +45,25 @@ static void getSystemInfo(short* request);
 static void getVolumes(short* request);
 static int isVolumeEnabled(char* volumeName);
 static void toUpper(char* string, int len);
-static void updateCpuList();
 
-typedef struct Info {
-  long long elapsedTime;
-  long long busyTime;
-  short typeNameLength;
-  char typeName[10];
-  int online;
-  int percentBusy;
-} Info;
+static void getProcessorBusy( const char *node, short nodeNameLength );
+static void getProcessorInfo( const char *node, short nodeNameLength );
 
-static Info currentCpuInfo[16];
-static Info lastCpuInfo[16];
+static cpu_info_def cpuInfo;
+static cpu_busy_def cpuBusy;
 
-void T9999A00_19AUG2014_NuWave_NonStop_Explorer_0_0_3(void) {return;}
+typedef struct {
+  short length;
+  char  value[256];   /* not the actual length */
+} BSTR;
+
+
 
 #if !defined(strcasecmp)
 int strcasecmp(const char *s1, const char *s2) {
   int cmp;
   while (*s1 && *s2) {
-    if ((cmp = tolower(*s1++) - tolower(*s2++)))
+    if ((cmp = tolower((int)*s1++) - tolower((int)*s2++)))
       return cmp;
   }
 
@@ -59,21 +72,17 @@ int strcasecmp(const char *s1, const char *s2) {
 #endif
 
 static void getCpuList(short* request) {
-  int i;
   get_cpu_list_result_def getCpuListResult;
-  short cpu;
+  int cpu;
 
   memset(&getCpuListResult, 0, sizeof(getCpuListResult));
   strcpy(getCpuListResult.node, node);
 
-  /* Build the response. */
-  for (i = 0, cpu = 0; cpu < 16; cpu++) {
-    if (currentCpuInfo[cpu].online) {
-      getCpuListResult.cpu_list.cpu[i].cpu_number = cpu;
-      getCpuListResult.cpu_list.cpu[i].busy = currentCpuInfo[cpu].percentBusy;
-      memcpy(getCpuListResult.cpu_list.cpu[i].name, currentCpuInfo[cpu].typeName,
-              currentCpuInfo[cpu].typeNameLength);
-      i++;
+  for ( cpu = 0; cpu <= maxcpus; cpu++) {
+    if ( cpuInfo.info[cpu].state == 0 ) {
+      strcpy( getCpuListResult.cpu_list.cpu[cpu].name, cpuInfo.info[cpu].name );
+      getCpuListResult.cpu_list.cpu[cpu].cpu_number = (short)cpu;
+      getCpuListResult.cpu_list.cpu[cpu].busy = cpuBusy.busy[cpu];
       getCpuListResult.cpu_list.cpu_count++;
     }
   }
@@ -83,13 +92,51 @@ static void getCpuList(short* request) {
   return;
 }
 
+
+static void getCpuBusy( get_cpu_busy_def* request ) {
+
+  get_cpu_busy_reply_def reply;
+
+  int offset;
+  int size = offsetof( cpu_busy_def, busy ) + ( (char *)&cpuBusy.busy[1] - (char *)&cpuBusy.busy[0] ) * cpuBusy.cpu_count;
+
+  memset( &reply, 0, sizeof(reply) );
+  memcpy( &reply.response, &cpuBusy, size );
+
+  /* compute the reply size */
+  offset = offsetof( get_cpu_busy_reply_def, response );
+
+  REPLYX( (char*)&reply, (unsigned short)( offset + size ) );
+  return;
+}
+
+
+static void getCpuInfo( get_cpu_info_def* request ) {
+
+  get_cpu_info_reply_def reply;
+
+  int offset;
+  int size = offsetof( cpu_info_def, info ) + ( (char *)&cpuInfo.info[1] - (char *)&cpuInfo.info[0] ) * cpuInfo.cpu_count;
+
+  /*  copy cached column metadata  */
+  memset( &reply, 0, sizeof(reply) );
+  memcpy( &reply.response, &cpuInfo, size );
+
+  /* compute the reply size */
+  offset = offsetof( get_cpu_info_reply_def, response );
+
+  REPLYX( (char*)&reply, (unsigned short)( offset + size ) );
+  return;
+}
+
+
 static void getFileInfo(short* request) {
   short rc;
   short len;
   char name[64];
   short itemList[50];
   short itemCount;
-  short resultLen;
+  unsigned short resultLen;
   short errorItem;
   int i;
   int offset;
@@ -233,7 +280,8 @@ static void getFiles(short* request) {
       getFilesResult.item_count++;
     }
 
-    qsort(getFilesResult.files, getFilesResult.item_count, sizeof(getFilesResult.files[0]), strcmp);
+    qsort( getFilesResult.files, getFilesResult.item_count,
+        sizeof(getFilesResult.files[0]), (int (*)(const void*, const void *)) strcmp );
   } else {
     getFilesResult.result_code = rc;
   }
@@ -281,7 +329,7 @@ static void getSubvols(short* request) {
     }
 
     qsort(getSubvolsResult.subvols, getSubvolsResult.item_count,
-            sizeof(getSubvolsResult.subvols[0]), strcmp);
+        sizeof(getSubvolsResult.subvols[0]), (int (*)(const void*, const void *)) strcmp );
   } else {
     getSubvolsResult.result_code = rc;
   }
@@ -343,7 +391,7 @@ static void getVolumes(short* request) {
     }
 
     qsort(getVolumesResult.volumes, getVolumesResult.item_count,
-            sizeof(getVolumesResult.volumes[0]), strcmp);
+        sizeof(getVolumesResult.volumes[0]), (int (*)(const void*, const void *)) strcmp );
   } else {
     getVolumesResult.result_code = rc;
   }
@@ -372,56 +420,118 @@ static int isVolumeEnabled(char* volumeName) {
 static void toUpper(char* string, int len) {
   int i;
   for (i = 0; *string && i < len; i++)
-    string[i] = (char) toupper(string[i]);
+    string[i] = (char) toupper((int)string[i]);
 }
 
-static void updateCpuList() {
-  short rc;
-  short len;
-  short cpu;
-  long long busyTime;
-  long long elapsedTime;
 
-#define ITEM_ELAPSEDTIME       18
-#define ITEM_BUSYTIME          19
+static void getProcessorInfo( const char *node, short nodeNameLength ) {
+
+  short usedlength;
+  short cpu;
+  BSTR *name;
+  short namelength;
+
 #define ITEM_TYPENAME          48
 
   short items[] =
-    { ITEM_ELAPSEDTIME, ITEM_BUSYTIME, ITEM_TYPENAME };
+    { ITEM_TYPENAME };
+
+  short buffer[256];
+  short *pbuffer = buffer;
 
   /* Get current processor info. */
-  for (cpu = 0; cpu < 16; cpu++) {
-    rc = PROCESSOR_GETINFOLIST_(node, (short) strlen(node), cpu, items,
-            (sizeof(items) / sizeof(items[0])), (short *) &currentCpuInfo[cpu], sizeof(Info), &len);
-    currentCpuInfo[cpu].online = (rc == 0 ? 1 : 0);
-  }
+  cpuInfo.cpu_count = (short)maxcpus;
 
-  /* Calculate busy time for each cpu. */
-  for (cpu = 0; cpu < 16; cpu++) {
-    if (currentCpuInfo[cpu].online) {
-      busyTime = currentCpuInfo[cpu].busyTime - lastCpuInfo[cpu].busyTime;
-      elapsedTime = currentCpuInfo[cpu].elapsedTime - lastCpuInfo[cpu].elapsedTime;
-      currentCpuInfo[cpu].percentBusy = (unsigned short) (busyTime / (elapsedTime / 100));
+  for (cpu = 0; cpu < maxcpus; cpu++) {
+
+    cpuInfo.info[cpu].cpu_id = cpu;
+
+    cpuInfo.info[cpu].state = PROCESSOR_GETINFOLIST_( (char *)node, nodeNameLength, cpu, items,
+            (sizeof(items)/sizeof(items[0])), buffer, (short)(sizeof(buffer)/sizeof(buffer[0])), &usedlength );
+    if ( cpuInfo.info[cpu].state == 0 ) {
+
+      name = (BSTR *)pbuffer;
+      namelength = min( sizeof( cpuInfo.info[cpu].name ) - 1, name->length );
+
+      strncpy( cpuInfo.info[cpu].name, name->value, namelength );
+
+      pbuffer += ( (name->length+1) % 2 ) / 2;
+
+    } else {
+
+      *cpuInfo.info[cpu].name = 0;
+
     }
   }
-
-  memcpy(lastCpuInfo, currentCpuInfo, sizeof(lastCpuInfo));
 
   return;
 }
 
-int main(void) {
+
+static void getProcessorBusy( const char *node, short nodeNameLength ) {
+
+  short length;
+  short cpu;
+
+#define ITEM_ELAPSEDTIME       18
+#define ITEM_BUSYTIME          19
+
+  short items[] =
+    { ITEM_ELAPSEDTIME, ITEM_BUSYTIME };
+
+  static struct InfoList {
+    long long elapsedTime;
+    long long busyTime;
+  } previous[MAX_CPUS], current, delta;
+
+
+  cpuBusy.timestamp = JULIANTIMESTAMP() / 1000 - 210866760000000;
+  cpuBusy.cpu_count = (short)maxcpus;
+
+  for ( cpu = 0; cpu < maxcpus; cpu++ ) {
+
+    if ( cpuInfo.info[cpu].state == 0 && PROCESSOR_GETINFOLIST_( ( char *)node, nodeNameLength, cpu, items,
+            (sizeof(items) / sizeof(items[0])), (short *)&current, sizeof(current), &length ) == 0 ) {
+
+      delta.busyTime = current.busyTime - previous[cpu].busyTime;
+      delta.elapsedTime = current.elapsedTime - previous[cpu].elapsedTime;
+      previous[cpu].elapsedTime = current.elapsedTime;
+      previous[cpu].busyTime = current.busyTime;
+
+      cpuBusy.busy[cpu] = (short)( delta.busyTime / ( delta.elapsedTime / 100 ) );
+
+    } else {
+
+      cpuBusy.busy[cpu] = -1;
+
+    }
+  }
+
+
+  return;
+}
+
+int main( int argc, char *argv[], char **envp ) {
 
   int openCount;
   short request[256];
   int cc;
   short rc;
-  short len;
   short filenum;
-  short countRead;
+  unsigned short countRead;
   char* p;
   int done;
   error_result_def errorResult;
+  int interval = 200;  /* in hsecs */
+
+  if ( ( p = getenv( "INTERVAL" ) ) ) {
+    sscanf( p, "%d", &interval );
+  }
+
+  if ( ( p = getenv( "MAXCPUS" ) ) ) {
+    sscanf( p, "%d", &maxcpus );
+  }
+
 
   /* Load the enabled volume list. Only volumes in this list will be accessible. */
   volumeCount = 0;
@@ -443,14 +553,14 @@ int main(void) {
   }
 
   /* No support for cross node lookups so get the current node name for future use. */
-  NODENUMBER_TO_NODENAME_(-1, node, sizeof(node), &len);
-  node[len] = 0;
+  NODENUMBER_TO_NODENAME_(-1, node, sizeof(node), &nodeNameLength);
+  node[nodeNameLength] = 0;
 
-  /* Initialize the cpu list and start the update timer. The cpu list will be updated
-   * every 5 seconds. */
-  memset(&lastCpuInfo, 0, sizeof(lastCpuInfo));
-  updateCpuList();
-  SIGNALTIMEOUT(500);
+  /*  get initial data  */
+  getProcessorInfo( node, nodeNameLength );
+  getProcessorBusy( node, nodeNameLength );
+
+  SIGNALTIMEOUT( interval );  /* start the update timer */
 
   /* Process messages. */
   for (done = 0, openCount = 0; !done;) {
@@ -484,11 +594,18 @@ int main(void) {
         done = 1;
       REPLYX(NULL, 0);
       break;
+
     case ZSYS_VAL_SMSG_TIMESIGNAL:
-      updateCpuList();
-      SIGNALTIMEOUT(500);
+      getProcessorBusy( node, nodeNameLength );
+      SIGNALTIMEOUT( interval );
       REPLYX(NULL, 0);
       break;
+
+    case ZSYS_VAL_SMSG_CPUUP:
+      getProcessorInfo( node, nodeNameLength );
+      REPLYX(NULL, 0);
+      break;
+
     case REQUEST_GET_VOLUMES:
       getVolumes(request);
       break;
@@ -507,6 +624,13 @@ int main(void) {
     case REQUEST_GET_CPU_LIST:
       getCpuList(request);
       break;
+    case REQUEST_GET_CPU_BUSY:
+      getCpuBusy( (get_cpu_busy_def *)request );
+      break;
+    case REQUEST_GET_CPU_INFO:
+      getCpuInfo( (get_cpu_info_def *)request );
+      break;
+
     default:
       memset(&errorResult, 0, sizeof(errorResult));
       errorResult.result_code = RESULT_INVALID_REQUEST;

@@ -5,6 +5,9 @@
 *.js text
 *.txt text
 *.md text
+*.json text
+*.c text
+*.h text
 
 *.jpg binary
 *.png binary

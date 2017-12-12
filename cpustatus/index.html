@@ -1,0 +1,201 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+    var host;
+    const base = "/explore/v2";
+    var gauges, gaugeoptions;
+    var linechart, lineoptions;
+    var linestable, gaugetable;
+
+    function onBodyLoaded() {
+      host = getQueryParameters()['host'];
+      if ( host ) {
+        google.charts.load('current',{'packages':['gauge','corechart']});
+        google.charts.setOnLoadCallback( initialize );
+      } else {
+        setMessage( 'Set the host address by appending + \'?host=http://system:serviceport\' to the URL' );
+      }
+    }
+    
+    function initialize() {
+
+      gaugeoptions = {
+        redFrom: 90, redTo: 100, yellowFrom:75, yellowTo: 90, minorTicks: 5
+      };
+
+      gauges = new google.visualization.Gauge( document.getElementById( 'gauges' ) );
+      gaugetable = new google.visualization.DataTable();
+      
+      lineoptions = {
+          title: 'Processor Busy %', curveType: 'function', legend: { position: 'bottom' }, height: 360, 
+          hAxis: { gridlines: { count: -1 } }, vAxis: { gridlines: { count: -1, minValue: 0, maxValue: 100 } }
+        };      
+      
+      linechart = new google.visualization.LineChart(document.getElementById('linechart'));
+      linestable = new google.visualization.DataTable();
+      
+      sendRequest( "GET", base + "/cpus", getCpuBusy );
+      
+    }  // initialize
+
+
+
+    function getCpuBusy( cpuInfo ) {
+      
+      linestable.addColumn( 'timeofday', 'time' );
+      
+      for( var x = 0; x < cpuInfo.info.length; x ++ ) {
+        gaugetable.addColumn( 'number' );
+        linestable.addColumn( 'number' );
+      }
+      
+      setInterval( function() {
+        sendRequest( "GET", base + "/cpus/busy", showCpuBusy, cpuInfo );
+      }, 2000 );
+      
+    }  // geCpuBusy
+    
+    
+    function showCpuBusy( cpuBusy, cpuInfo ) {
+
+      var gaugerow = [];
+     
+      for( var x = 0; x < cpuBusy.busy.length; x ++ ) {
+        //  adjust column labels to reflect current state
+        gaugetable.setColumnLabel( x, '(' + cpuInfo.info[x].cpuId + ') ' + ( cpuBusy.busy[x] == -1 ? 'DOWN' : cpuInfo.info[x].name ) );
+        gaugerow.push( cpuBusy.busy[x] == -1 ? 0 : cpuBusy.busy[x] );   // gauge will not be drawn if not 0 >= value >= 100
+      }
+    
+      while ( gaugetable.getNumberOfRows() > 0 ) {
+        gaugetable.removeRow( 0 );
+      };
+
+      gaugetable.addRow( gaugerow );
+      gauges.draw( gaugetable, gaugeoptions );
+
+      
+      var ts = new Date( Number( cpuBusy.timestamp ) );
+      var linesrow = [ [ ts.getHours(), ts.getMinutes(), ts.getSeconds(), ts.getMilliseconds() ] ];
+
+      for( var x = 0; x < cpuBusy.busy.length; x ++ ) {
+        //  adjust column labels to reflect current state
+        linestable.setColumnLabel( x + 1, '(' + cpuInfo.info[x].cpuId + ') ' + ( cpuBusy.busy[x] == -1 ? 'DOWN' : cpuInfo.info[x].name ) );
+        linesrow.push( cpuBusy.busy[x] == -1 ? null : cpuBusy.busy[x] );
+      }
+    
+      while ( linestable.getNumberOfRows() > 60 ) {
+        linestable.removeRow( 0 );
+      };
+     
+      linestable.addRow( linesrow );
+      linechart.draw( linestable, lineoptions );
+      
+    }  // showCpuBusy
+    
+    
+    function sendRequest( method, uri, callback /* , ... */ ) {
+
+      var url = host + uri;
+      var parameters = [];
+      
+      for ( var x = 3; x < arguments.length; x++ ) {
+        parameters.push( arguments[x] );  //  append any additional arguments
+      }
+
+      /*  call the REST API provided by LightWave Server via the XMLHttpRequest object */
+      
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open( method, url );
+         
+        xhr.onreadystatechange = function () {
+          if ( xhr.readyState === XMLHttpRequest.DONE ) {
+            if ( xhr.status === 200 ) {
+              setMessage(''); callback.apply( this, [ JSON.parse( xhr.responseText ) ].concat( parameters ) );
+            } else {
+              if ( xhr.status === 0 ) {
+                setMessage( 'An unspecified network communication error occurred' );
+              } else {
+                setMessage( xhr.status + ' ' + xhr.statusText + ' : ' + xhr.getAllResponseHeaders().split('\r\n').filter( function ( header ) { return header.match('^lw-') } ).join(' : ') );
+              }
+            }
+          }
+        };
+        
+        xhr.send();
+        
+        } catch (e) {
+          setMessage( e.message );
+        }
+
+      return;
+    }
+    
+    function getQueryParameters() {
+      var parameters = {};
+      var kvpairs = window.location.search.substring(1).split('&');
+      for ( var i = 0; i < kvpairs.length; i++ ) {
+        var pair = kvpairs[i].split('=');
+        parameters[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+      }
+      return parameters;
+    }
+    
+    function setMessage( message ) {
+    
+      var div = document.getElementById( 'message' );
+      div.innerHTML = message;
+    
+    }  // setMessage
+    
+    
+    if (typeof XMLHttpRequest == "undefined")
+      XMLHttpRequest = function() {
+        try {
+          return new ActiveXObject("Msxml2.XMLHTTP.6.0")
+        } catch (e) {
+        }
+        try {
+          return new ActiveXObject("Msxml2.XMLHTTP.3.0")
+        } catch (e) {
+        }
+        try {
+          return new ActiveXObject("Msxml2.XMLHTTP")
+        } catch (e) {
+        }
+        try {
+          return new ActiveXObject("Microsoft.XMLHTTP")
+        } catch (e) {
+        }
+        throw new Error("This browser does not support XMLHttpRequest.")
+      };
+
+    </script>
+    <style>
+      body { font-family: Verdana, Arial, sans-serif }
+      #message { color: red; padding: 20px 0; }
+      #gauges { width: 100%; }
+      #gauges table { margin: auto !important }
+      div#gauges table > tbody > tr > td { width: 0 !important };
+      #linechart { width: 100%; }
+      #credits { font-style: italic; font-size: 1.25em; padding: 24px 0 4px 0; }
+      #LightWave { font-style: normal; font-weight: 900; }
+      #website { font-size: 1.125em; }
+      .center { text-align: center }
+      
+    </style>
+  </head>
+  <body onload="onBodyLoaded()">
+    <div id="message" class="center">Initializing ...</div>
+    <div id="gauges"></div>
+    <div id="linechart"></div>
+    <div id="credits" class="center">
+      Demonstration powered by <span id="LightWave">LightWave Server&trade;</span> from <img src="logo.svg" width="144px">
+    </div>
+    <div id="website" class="center">
+      www.nuwavetech.com
+    </div>
+  </body>
+</html>

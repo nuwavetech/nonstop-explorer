@@ -1,0 +1,4 @@
+GetCpuStatus get CPU status
+GetCpuStatus what is the CPU status
+GetCpuStatus give me CPU status
+GetCpuStatus for CPU status
