@@ -78,7 +78,7 @@ static void getCpuList(short* request) {
   memset(&getCpuListResult, 0, sizeof(getCpuListResult));
   strcpy(getCpuListResult.node, node);
 
-  for ( cpu = 0; cpu <= maxcpus; cpu++) {
+  for ( cpu = 0; cpu < maxcpus; cpu++) {
     if ( cpuInfo.info[cpu].state == 0 ) {
       strcpy( getCpuListResult.cpu_list.cpu[cpu].name, cpuInfo.info[cpu].name );
       getCpuListResult.cpu_list.cpu[cpu].cpu_number = (short)cpu;
