@@ -5,7 +5,7 @@ The NonStop Explorer Pathway Server may be built on your system using the follow
 
 ##### Install the Source Code
 
-* Copy the [PAK file] (http://cdn.nuwavetech.com/pub/lightwave/sample/nepak.pak) to your NonStop Server. Make sure the file is transferred
+* Copy the [PAK file](http://cdn.nuwavetech.com/pub/lightwave/sample/nepak.pak) to your NonStop Server. Make sure the file is transferred
 as a binary file.
 * Unpak the file into a subvol of your choice.
 ```
@@ -16,7 +16,7 @@ as a binary file.
 * Run the NEBLD macro, which builds the dictionary and the NESVR program. The dictionary build
 process also creates C, COBOL, and TAL definition files.
 ```
-  tacl> run nebld
+  tacl> run build
 ```
 ##### Configuring the Pathway
 
@@ -56,13 +56,13 @@ dictionary and API definition, and deploy the API as a service. The dictionary a
 are located in the **resources** directory. For information on installing these resources and
 deploying them as a service, refer to the following resources in the LightWave Server documentation:
 
-* [Working with Dictionaries] (http://docs.nuwavetech.com/display/LWSERVER/Working+with+Dictionaries)
-* [Working with User-Defined APIs] (http://docs.nuwavetech.com/display/LWSERVER/Working+with+User-Defined+APIs)
-* [Deploying APIs as Services] (http://docs.nuwavetech.com/display/LWSERVER/Deploying+APIs+as+Services)
+* [Working with Dictionaries](http://docs.nuwavetech.com/display/LWSERVER/Working+with+Dictionaries)
+* [Working with User-Defined APIs](http://docs.nuwavetech.com/display/LWSERVER/Working+with+User-Defined+APIs)
+* [Deploying APIs as Services](http://docs.nuwavetech.com/display/LWSERVER/Deploying+APIs+as+Services)
 
 The API definition references the DEFINE name "=NE^PATHMON" as the PATHMON process name used by LightWave Server when the API is called. In order for LightWave to be able to resolve =NE^PATHMON at run time, the define must be added to your TACL environment prior to starting LightWave Server:
 ```
   tacl> add define =NE^PATHMON, class MAP, file <nePathmon-name>
   tacl> run server ...
-```  
+```
 
