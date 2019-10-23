@@ -82,7 +82,7 @@ function getServerUrlPrefix() {
     return;
   }
 
-  return url = 'http://' + hostPort;
+  return url = 'https://' + hostPort;
 }
 
 function getSubvols() {
