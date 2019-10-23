@@ -3,33 +3,26 @@
 
   <div layout="row" layout-wrap>
 
-    <md-whiteframe class="md-whiteframe-z2" flex="100">
+    <md-whiteframe class="md-whiteframe-z2" layout="column" flex="100">
       <div class="md-padding">
         <form novalidate name="form" ng-submit="vm.submit()">
-          <md-input-container>
-            <label>Host</label>
-            <input type="text" name="host" ng-model="vm.host" required>
-            <ng-messages for="form.host.$error">
-              <ng-message when="required">This field is required and must be a valid host name.</ng-message>
-            </ng-messages>
-          </md-input-container>
-          <md-input-container>
-            <label>Port</label>
-            <input type="number" name="port" ng-model="vm.port" required min="1" max="65535">
-            <ng-messages for="form.port.$error">
-              <ng-message when="required">This field is required.</ng-message>
-              <ng-message when="number | min | max">The field must be a number in the range 1 - 65535.</ng-message>
-            </ng-messages>
-          </md-input-container>
-          <md-input-container>
-            <label>CPU Status Update Interval</label>
-            <input type="number" name="interval" ng-model="vm.interval" min="5" max="60" required>
-            <ng-messages for="form.interval.$error">
-              <ng-message when="required">This field is required.</ng-message>
-              <ng-message when="number | min | max">The field must be a number in the range 5 - 60.</ng-message>
-            </ng-messages>
-          </md-input-container>
-
+          <div layout="column">
+            <md-input-container>
+              <label>Host</label>
+              <input type="text" name="host" ng-model="vm.host" required>
+              <ng-messages for="form.host.$error">
+                <ng-message when="required">This field is required and must be a valid host URL.</ng-message>
+              </ng-messages>
+            </md-input-container>
+            <md-input-container>
+              <label>CPU Status Update Interval</label>
+              <input type="number" name="interval" ng-model="vm.interval" min="5" max="60" required>
+              <ng-messages for="form.interval.$error">
+                <ng-message when="required">This field is required.</ng-message>
+                <ng-message when="number | min | max">The field must be a number in the range 5 - 60.</ng-message>
+              </ng-messages>
+            </md-input-container>
+          </div>
           <div class="md-actions" layout="row">
             <md-button type="submit" class="md-primary">Save</md-button>
             <md-button type="button" ng-click="vm.reset()">Reset</md-button>

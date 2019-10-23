@@ -16,16 +16,15 @@
     function activate() {
       layout.setToolbarTitle('Settings');
       reset();
-    }
-
+    }  
+ 
     function reset() {
       vm.host = settings.getHost();
-      vm.port = settings.getPort();
       vm.interval = settings.getCpuUpdateInterval();
     }
 
     function submit() {
-      if (settings.setHost(vm.host) && settings.setPort(vm.port) && settings.setCpuUpdateInterval(vm.interval)) {
+      if (settings.setHost(vm.host) && settings.setCpuUpdateInterval(vm.interval)) {
         $mdToast.show($mdToast.simple().content('The settings have been updated.'));
       } else {
         $mdToast.show($mdToast.simple().content('An unexpected error occurred while updating the settings.'));

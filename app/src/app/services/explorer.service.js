@@ -16,8 +16,6 @@
       getVols : getVols
     };
 
-    var dictionaryName = 'io.nuwavetech.nonstopexplorer';
-
     return activate();
 
     function activate() {
@@ -65,7 +63,7 @@
     }
 
     function getUrlPrefix() {
-      return 'http://' + settings.getHostAddress();
+      return settings.getHostAddress();
     }
 
     function getVols() {
@@ -82,7 +80,7 @@
       config.method = request.method;
       config.url = getUrlPrefix() + request.uri;
       $http.defaults.useXDomain = true;
-
+    
       $http(config).then(function(response) {
         if (response.status == 200) {
           d.resolve(response);

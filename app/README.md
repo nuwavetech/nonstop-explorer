@@ -32,17 +32,19 @@ The NonStop Explorer web/Android app may be built on your system using the follo
 
 #### Build the Apache Cordova version of the App
 
+_Installation, configuration, and use of the Android and Cordova development environments is beyond the scope of these instructions. These instructions are intended for those who are already familiar with Android and Cordova development._
+
 _Note that you must build the web version in order to build the Cordova version._
 
 ##### Install Cordova Dependencies and Cordova
 
-* Install the [JAVA JDK](http://java.oracle.com). Make sure the JAVA_HOME environment variable is set to the directory
+* Install the [JAVA JDK](http://java.oracle.com). At the time these instructions were created, Cordova required JDK 8. Make sure the JAVA_HOME environment variable is set to the directory
 containing the JDK and the \<JDK\>/bin directory is added to the
 PATH environment variable.
 
 * Install the Android SDK Stand-Alone Tools according to the the installation instructions found at
 [Installing the Android SDK](https://developer.android.com/sdk/installing/index.html). Note that you
-do not need to install Android Studio, only the Stand-Alone SDK Tools are required.
+do not need to install Android Studio, only the command line tools are required.
 Make sure the \<SDK\>/platform-tools and \<SDK\>/tools directories are added to the PATH environment variable.
 
 * Restart your shell or command processor so that the environment changes made by the previous dependencies will take

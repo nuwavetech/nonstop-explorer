@@ -2,22 +2,22 @@
   "name": "z",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.4.0",
-    "angular-aria": "^1.4.0",
-    "angular-animate": "^1.4.0",
-    "angular-cookies": "^1.4.0",
-    "angular-messages": "^1.4.0",
-    "angular-resource": "^1.4.0",
-    "angular-route": "^1.4.0",
-    "angular-sanitize": "^1.4.0",
-    "angular-touch": "^1.4.0",
-    "angular-material": "^0.10.0",
+    "angular": "^1.7.5",
+    "angular-aria": "^1.7.5",
+    "angular-animate": "^1.7.5",
+    "angular-cookies": "^1.7.5",
+    "angular-messages": "^1.7.5",
+    "angular-resource": "^1.7.5",
+    "angular-route": "^1.7.5",
+    "angular-sanitize": "^1.7.5",
+    "angular-touch": "^1.7.5",
+    "angular-material": "^1.1.10",
     "material-design-icons": "1.0.1",
-    "angular-ui-router": "~0.2.14",
+    "angular-ui-router": "~1.0.20",
     "angular-material-data-table": "*"
   },
   "devDependencies": {
-    "angular-mocks": "^1.4.0"
+    "angular-mocks": "^1.7.5"
   },
   "appPath": "app",
   "moduleName": "zApp"
