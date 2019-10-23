@@ -10,19 +10,14 @@
     var methods = {
       getCpuUpdateInterval : getCpuUpdateInterval,
       getHost : getHost,
-      getHostAddress : getHostAddress,
-      getPort : getPort,
+      getHostAddress : getHostAddress,     
       setHost : setHost,
       setCpuUpdateInterval : setCpuUpdateInterval,
-      setPort : setPort
     };
 
     var cpuUpdateInterval = 5;
-    var host = 'lightwave-server.nuwavetech.io';
-    var port = 80;
-
-//    host = '54.175.83.41';
-//    port = 80;
+    var defaultHost = 'https://lightwave-server.demo.nuwavetech.com';
+    var host = defaultHost;
 
     return activate();
 
@@ -35,11 +30,7 @@
     }
 
     function getHostAddress() {
-      return host + ':' + port;
-    }
-
-    function getPort() {
-      return port;
+      return host;
     }
 
     function getCpuUpdateInterval() {
@@ -48,8 +39,7 @@
 
     function reset() {
       cpuUpdateInterval = 5;
-      host = 'lightwave-server.nuwavetech.io';
-      port = 80;
+      host = defaultHost
     }
 
     function setCpuUpdateInterval(value) {
@@ -70,21 +60,6 @@
     function setHost(value) {
       if (value.length > 0) {
         host = value;
-        return true;
-      }
-
-      return false;
-    }
-
-    function setPort(value) {
-      try {
-        value = Number(value);
-      } catch (e) {
-        return false;
-      }
-
-      if (value >= 1 && value <= 65535) {
-        port = value;
         return true;
       }
 
